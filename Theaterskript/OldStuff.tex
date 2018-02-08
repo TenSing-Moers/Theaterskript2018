@@ -1,0 +1,76 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Old Stuff moved from Theaterskript-2017.tex after the transition to the new %
+% character management implementation (automatic character lists etc.). These %
+% commands define the old character management implementation, where each     %
+% command was defined manually for each person. But the new thing is much     %
+% smarter, easier, simpler, more efficient, you name it!                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Diese Kommandos werden genutzt, um die Charaktere sprechen zu lassen. Dabei wird der in { } übergebene Text in eine entsprechend eingefärbte tcolorbox gesetzt.
+% Charaktere: Wetten, dass...?!
+\newcommand{\thomasx}[1]{\speechboxblack{\thomas}{thomasc}{#1}}
+\newcommand{\jeremyx}[1]{\speechboxblack{\jeremy}{jeremyc}{#1}}
+\newcommand{\ronx}[1]{\speechboxblack{\ron}{ronc}{#1}}
+\newcommand{\kevinx}[1]{\speechbox{\kevin}{kevinc}{#1}}
+\newcommand{\jacquelinex}[1]{\speechbox{\jacqueline}{jacquelinec}{#1}}
+% Charaktere: Die Guten
+\newcommand{\olafx}[1]{\speechbox{\olaf}{olafc}{#1}}
+\newcommand{\meridax}[1]{\speechbox{\merida}{meridac}{#1}}
+\newcommand{\aladdinx}[1]{\speechbox{\aladdin}{aladdinc}{#1}}
+\newcommand{\jackx}[1]{\speechbox{\jack}{jackc}{#1}}
+\newcommand{\remyx}[1]{\speechbox{\remy}{remyc}{#1}}
+\newcommand{\pocahontasx}[1]{\speechbox{\pocahontas}{pocahontasc}{#1}}
+\newcommand{\moderatorx}[1]{\speechbox{\moderator}{moderatorc}{#1}}
+% Charaktere: Die Bösen
+\newcommand{\mickeyx}[1]{\speechbox{\mickey}{mickeyc}{#1}}
+\newcommand{\schneewittchenx}[1]{\speechbox{\schneewittchen}{schneewittchenc}{#1}}
+\newcommand{\docx}[1]{\speechbox{\doc}{docc}{#1}}
+\newcommand{\herzkoniginx}[1]{\speechbox{\herzkonigin}{herzkoniginc}{#1}}
+\newcommand{\maleficentx}[1]{\speechbox{\maleficent}{maleficentc}{#1}}
+\newcommand{\willyx}[1]{\speechbox{\willy}{willyc}{#1}}
+\newcommand{\winniex}[1]{\speechbox{\winnie}{winniec}{#1}}
+\newcommand{\wacheax}[1]{\speechbox{\wachea}{wacheac}{#1}}
+\newcommand{\wachebx}[1]{\speechbox{\wacheb}{wachebc}{#1}}
+% Charaktere: Die Manager
+\newcommand{\managerax}[1]{\speechbox{\managera}{managerac}{#1}}
+\newcommand{\managerbx}[1]{\speechbox{\managerb}{managerbc}{#1}}
+\newcommand{\managercx}[1]{\speechbox{\managerc}{managercc}{#1}}
+\newcommand{\managerdx}[1]{\speechboxblack{\managerd}{managerdc}{#1}}
+\newcommand{\managerex}[1]{\speechbox{\managere}{managerec}{#1}}
+% Sonstiges
+\newcommand{\customx}[2]{\speechbox{\textsc{#1}}{grey}{#2}}
+
+%Diese Kommandos werden genutzt, um die Charaktere in den Bühnenanweisungen zu markieren, damit die Darsteller aufmerksam werden, dass sie etwas tun müssen. Dabei wird einfach der Name des jeweiligen Charakters über eine colorbox hinterlegt.
+\newcommand{\boxcommand}[2]{\setlength{\fboxsep}{\savedfboxsep}\colorbox{#1}{#2}} %Dieses Kommando bestimmt, wie jedes der Highlight-Makros seine Colorboxen macht. Die Länge \fboxsep muss jedes mal neu gesetzt werden, da die colorboxen in \lied, \tanz usw, diese auf 0mm setzen, und nicht wieder zurücksetzen. Sonst sieht der Margin trotz \strut hässlich aus.
+% Charaktere: Wetten, dass...?!
+\newcommand{\thomash}{ \boxcommand{thomasc}{\strut\thomas} }
+\newcommand{\jeremyh}{ \boxcommand{jeremyc}{\strut\jeremy} }
+\newcommand{\ronh}{ \boxcommand{ronc}{\strut\ron} }
+\newcommand{\kevinh}{ \boxcommand{kevinc}{\strut\textcolor{white}\kevin} }
+\newcommand{\jacquelineh}{ \boxcommand{jacquelinec}{\strut\textcolor{white}\jacqueline} }
+% Charaktere: Die Guten
+\newcommand{\olafh}{ \boxcommand{olafc}{\strut\textcolor{white}\olaf} }
+\newcommand{\meridah}{ \boxcommand{meridac}{\strut\textcolor{white}\merida} }
+\newcommand{\aladdinh}{ \boxcommand{aladdinc}{\strut\textcolor{white}\aladdin} }
+\newcommand{\jackh}{ \boxcommand{jackc}{\strut\textcolor{white}\jack} }
+\newcommand{\remyh}{ \boxcommand{remyc}{\strut\textcolor{white}\remy} }
+\newcommand{\pocahontash}{ \boxcommand{pocahontasc}{\strut\textcolor{white}\pocahontas} }
+\newcommand{\moderatorh}{ \boxcommand{moderatorc}{\strut\textcolor{white}\moderator} }
+% Charaktere: Die Bösen
+\newcommand{\mickeyh}{ \boxcommand{mickeyc}{\strut\textcolor{white}\mickey} }
+\newcommand{\schneewittchenh}{ \boxcommand{schneewittchenc}{\strut\textcolor{white}\schneewittchen} }
+\newcommand{\doch}{ \boxcommand{docc}{\strut\textcolor{white}\doc} }
+\newcommand{\herzkoniginh}{ \boxcommand{herzkoniginc}{\strut\textcolor{white}\herzkonigin} }
+\newcommand{\maleficenth}{ \boxcommand{maleficentc}{\strut\textcolor{white}\maleficent} }
+\newcommand{\willyh}{ \boxcommand{willyc}{\strut\textcolor{white}\willy} }
+\newcommand{\winnieh}{ \boxcommand{winniec}{\strut\textcolor{white}\winnie} }
+\newcommand{\wacheah}{ \boxcommand{wacheac}{\strut\textcolor{white}\wachea} }
+\newcommand{\wachebh}{ \boxcommand{wachebc}{\strut\textcolor{white}\wacheb} }
+% Charaktere: Die Manager
+\newcommand{\managerah}{ \boxcommand{managerac}{\strut\textcolor{white}\managera} }
+\newcommand{\managerbh}{ \boxcommand{managerbc}{\strut\textcolor{white}\managerb} }
+\newcommand{\managerch}{ \boxcommand{managercc}{\strut\textcolor{white}\managerc} }
+\newcommand{\managerdh}{ \boxcommand{managerdc}{\strut\textcolor{black}\managerd} }
+\newcommand{\managereh}{ \boxcommand{managerec}{\strut\textcolor{white}\managere} }
+% Sonstiges
+\newcommand{\customh}[1]{ \boxcommand{grey}{\strut\textcolor{white}{#1} }}

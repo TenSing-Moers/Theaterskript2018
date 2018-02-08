@@ -1,0 +1,145 @@
+\include{Theaterskript-2017-preamble}
+\input{AdvancedPersonLists}
+\include{colors}
+\usepackage{lipsum}
+
+%\makeatletter
+%\renewcommand\GCharacter[5]{
+%    \stepcounter{g\Roman{character}}
+%    \global\@namedef{#3}{{\namefont #2}\xspace}
+%    \global\n@me@ppend@nddef{#3}{\@ppendname}{%
+%        \if@drverse
+%            {\speakstab\speaksfont #2\speaksdel\par\nobreak\addvspace{-\parskip}}
+%        \else
+%            \item[#2\speaksdel]
+%        \fi}
+%    \global\n@me@ppend@nddef{gpersona@\Roman{character}}{%
+%        @\Roman{g\Roman{character}}}{\castfont #1}
+%    \NewPerson{#2}{#3}{#4}{#5}
+%    \PackageWarningNoLine{GCharacter}{Creating (#2, #3, #4, #5)}
+%}
+%\makeatother
+
+%{
+%\NewPerson{Thomas Gottschalk}{thomas}{green}{black}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Hier werden die Charaktere definiert. Jeder Charakter bekommt automatisch ein Kommando wie in den letzten { } angegeben, welches seinen Namen in Kapitälchen abdruckt. Darüber hinaus werden die Charaktere mit dem in den ersten { } angegebenen Namen in den DramaticsPersonae (Personenlisten) zu Beginn des Skripts aufgeführt.
+%\begin{CharacterGroup}{Wetten, dass...?!}
+%\GCharacter{Thomas Gottschalk \role{Lukas}}{Thomas Gottschalk}{thomas}
+%\GCharacter{Jeremy-Pascal \role{Katrin}}{Jeremy Pascal}{jeremy}
+%\GCharacter{Ron Weasley \role{Louise}}{Ron Weasley}{ron}
+%\GCharacter{Kevin \role{Laura}}{Kevin}{kevin}
+%\GCharacter{Jacqueline \role{wer?}}{Jacqueline}{jacqueline}
+%\end{CharacterGroup}
+%
+%\begin{CharacterGroup}{Die Guten}
+%\GCharacter{Olaf \role{Jantje}}{Olaf}{olaf}
+%\GCharacter{Merida \role{Luzie}}{Merida}{merida}
+%\GCharacter{Aladdin \role{Hannah O.}}{Aladdin}{aladdin}
+%\GCharacter{Jack Sparrow \role{Hannah S.}}{Jack Sparrow}{jack}
+%\GCharacter{Remy \role{Chiara}}{Remy}{remy}
+%\GCharacter{Pocahontas \role{Franzi}}{Pocahontas}{pocahontas}
+%\GCharacter{Moderator der Castingshow}{Moderator}{moderator}
+%\end{CharacterGroup}
+%
+%\begin{CharacterGroup}{Die Bösen}
+%\GCharacter{Mickey \role{Justin}}{Mickey}{mickey}
+%\GCharacter{Schneewittchen \role{Mara}}{Schneewittchen}{schneewittchen}
+%\GCharacter{Zwerg Doc \role{Janin}}{Doc}{doc}
+%\GCharacter{Die Herzkönigin \role{Nina}}{Herzkönigin}{herzkonigin}
+%\GCharacter{Maleficent \role{Maja}}{Maleficent}{maleficent}
+%\GCharacter{Willy Wonka \role{Leo}}{Willy Wonka}{willy}
+%\GCharacter{Winnie Pooh \role{Lea}}{Winnie Pooh}{winnie}
+%\GCharacter{Wache 1 \role{Raphael}}{Wache 1}{wachea}
+%\GCharacter{Wache 2 \role{Alex}}{Wache 2}{wacheb}
+%\end{CharacterGroup}
+%
+%\begin{CharacterGroup}{Die Manager}
+%\GCharacter{Manager 1 \role{Thilo}}{Manager 1}{managera}
+%\GCharacter{Manager 2 \role{Louise}}{Manager 2}{managerb}
+%\GCharacter{Manager 3 \role{Luzi}}{Manager 3}{managerc}
+%\GCharacter{Manager 4 \role{Katrin}}{Manager 4}{managerd}
+%\GCharacter{Manager 5 \role{Judith}}{Manager 5}{managere}
+%\end{CharacterGroup}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Hier standen ehemals die Definitionen der \<charactername>x und \<charactername>h-commandos.
+\NewPerson{Thomas Gottschalk}{thomas}{thomasc}{black}
+\NewPerson{Jeremy-Pascal}{jeremy}{jeremyc}{black}
+\NewPerson{Ron Weasley}{ron}{ronc}{black}
+\NewPerson{Kevin}{kevin}{kevinc}{white}
+\NewPerson{Jacqueline}{jacqueline}{jacquelinec}{white}
+\NewPerson{Olaf}{olaf}{olafc}{white}
+\NewPerson{Merida}{merida}{meridac}{white}
+\NewPerson{Aladdin}{aladdin}{aladdinc}{white}
+\NewPerson{Jack}{jack}{jackc}{white}
+\NewPerson{Remy}{remy}{remyc}{white}
+\NewPerson{Pocahontas}{pocahontas}{pocahontasc}{white}
+\NewPerson{Moderator}{moderator}{moderatorc}{white}
+\NewPerson{Mickey}{mickey}{mickeyc}{white}
+\NewPerson{Schneewittchen}{schneewittchen}{schneewittchenc}{white}
+\NewPerson{Doc}{doc}{docc}{white}
+\NewPerson{Rote Königin}{rk}{rkc}{white}
+\NewPerson{Maleficent}{maleficent}{maleficentc}{white}
+\NewPerson{Willy Wonka}{willy}{willyc}{white}
+\NewPerson{Winnie Pooh}{winnie}{winniec}{white}
+\NewPerson{Wache 1}{wachea}{wacheac}{white}
+\NewPerson{Wache 2}{wacheb}{wachebc}{white}
+\NewPerson{Manager 1}{managera}{managerac}{white}
+\NewPerson{Manager 2}{managerb}{managerbc}{white}
+\NewPerson{Manager 3}{managerc}{managercc}{white}
+\NewPerson{Manager 4}{managerd}{managerdc}{black}
+\NewPerson{Manager 5}{managere}{managerec}{white}
+
+\newcommand{\customx}[2]{\speechbox{\textsc{#1}}{grey}{white}{#2}}
+\newcommand{\customh}[1]{ \boxcommand{grey}{\strut\textcolor{white}{#1} }}
+
+\newcommand{\thomass}{\textsc{Thomas} }
+\newcommand{\gottschalk}{\textsc{Gottschalk} }
+\newcommand{\ronn}{\textsc{Ron} }
+\newcommand{\weasley}{\textsc{Weasley} }
+\newcommand{\jeremyy}{\textsc{Jeremy} }
+\newcommand{\jackk}{\textsc{Jack} }
+\newcommand{\wonka}{\textsc{Wonka} }
+\newcommand{\willyy}{\textsc{Willy} }
+\newcommand{\winniee}{\textsc{Winnie} }
+\newcommand{\mickeyy}{\textsc{Mickey} }
+
+\newcommand{\krawatte}{\direct{Richtet Krawatte} }
+
+\newcommand\AtPageUpperRight[1]{\AtPageUpperLeft{%
+ \put(\LenToUnit{\paperwidth},\LenToUnit{0\paperheight}){#1}%
+ }}%
+
+\begin{document}
+\AddToShipoutPicture*{\BackgroundPic}
+\AddToShipoutPictureBG*{%
+  \AtPageUpperLeft{\raisebox{-\height}{\includegraphics[scale=.15,trim=50mm 0mm 100mm -10mm]{res/TEN_SING_Logo}}}%
+  \AtPageUpperRight{\put(-100,-6){\raisebox{-\height}{\includegraphics[scale=.18,trim=50mm 0mm 100mm -10mm]{res/CVJM_Logo_Vektor_Rein}}}}%
+}
+\begin{center}
+\phantom{asdf}
+\vspace{-2cm}
++++ Version 1 vom 12. März 2017 +++
+
+\includegraphics[scale=.3]{res/Walt_Disney_Pictures_Castle_Logo-Crop}
+
+\vspace{-1cm}
+\Huge{Drama präsentiert}:
+
+\vspace{2cm}
+%\lipsum[1]
+\Huge\textbf{Unser super-mega-krass-tolles Disney-Theaterstück!!1!}\\
+\textit{(wir haben noch kein Motto)}
+
+\vspace{1cm}
+
+\Large \st{+++ ihre Werbung hier +++ ihre Werbung hier +++}
+
+\vspace{1.5cm}
+
+\Large TenSing Moers, 2017
+\end{center}
+\end{document}

@@ -1,0 +1,176 @@
+%% This is letterhead.sty, which is the LaTeX 2e package for defining
+%% custom letterheads.
+%% Copyright (C) 2003  Simon Law
+%%
+%% This program is free software; you can redistribute it and/or modify
+%% it under the terms of the GNU General Public License as published by
+%% the Free Software Foundation; either version 2 of the License, or
+%% (at your option) any later version.
+%%
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%%
+%% You should have received a copy of the GNU General Public License
+%% along with this program; if not, write to the Free Software
+%% Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+%%
+%% Requirements: You must have tetex-extra installed on your system.
+%% This package should be used in conjunction with letter.cls.
+%%
+%% Changelog:
+%%   Version 1.0
+%%   * Initial release.
+%%   -- Simon Law <sfllaw@engmail.uwaterloo.ca>
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{letterhead}[2003/01/19 v1.0]
+
+%%%%%%%%%%%%%%%%%
+%% DEFINE LENGTHS
+%%%%%%%%%%%%%%%%%
+% We should eat up half an inch of margin so that the letterhead does
+% not invade as much of the page.
+\newlength{\letterheadheight}
+\setlength{\letterheadheight}{-0.5in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DEFINE HEADER AND FOOTER SUBSTITUTIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The default header is empty, just like the standard letter.cls.
+\newcommand*{\letterhead}{\empty}
+% The default footer is just like the standard letter.cls.
+\newcommand*{\letterfoot}{%
+  \hspace*{100pt}\vspace*{45pt}%
+  \fromlocation \hfill \telephonenum%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DEFINE NEW SUBSTITUTIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*{\office}[1]{\def\fromoffice{#1}}
+\newcommand*{\subject}[1]{\def\thesubject{#1}}
+\office{}
+\subject{}
+
+%%%%%%%%%%%%%%%%%%%%%%
+%% DEFINE LETTERSTYLES
+%%%%%%%%%%%%%%%%%%%%%%
+% There are three business letter styles in common use:
+%  - Full block: all text is flush against the left margin.
+%  - Semi-block: the sender's address, date, and signature are indented.
+%  - Modified:   Like semi-block, only the paragraph text is indented as well.
+\newcommand*{\letterstyle}[1]{%
+  \@ifundefined{ls@#1}%
+    \undefinedletterstyle
+  {\@nameuse{ls@#1}}%
+}
+\newcommand*{\ls@full}{\noindentfrom\noindentsig\setlength{\parindent}{0pt}}
+\newcommand*{\ls@semi}{\indentfrom\indentsig\setlength{\parindent}{0pt}}
+\newcommand*{\ls@modified}{\indentfrom\indentsig\setlength{\parindent}{20pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%% DEFINE THE PAGESTYLE
+%%%%%%%%%%%%%%%%%%%%%%%
+% \pagestyle{firstpage} is used by letter.cls for the first page of each
+% letter.
+\def\ps@firstpage{%
+  \def\@oddhead{%
+    % Use a smaller font that usual, and scale it to be consistent.
+    \ifcase \@ptsize\relax
+      \normalsize
+    \or
+      \small
+    \or
+      \footnotesize
+    \fi
+    % Display the letterhead
+    \parbox{\textwidth}{\vspace*{\letterheadheight}\letterhead}%
+  }
+  \def\@oddfoot{%
+    \hb@xt@\textwidth{%
+      % Use a smaller font that usual, and scale it to be consistent.
+      \ifcase \@ptsize\relax
+        \footnotesize
+      \or
+        \scriptsize
+      \or
+        \scriptsize
+      \fi
+      % Display the footer.
+      \parbox{\textwidth}{\letterfoot}%
+    }%
+  }%
+  \hss%
+}
+
+%%%%%%%%%%
+%% OPENING
+%%%%%%%%%%
+% @indentfrom is used to determine if the sender's address and date should
+% be indented.
+\newif \if@indentfrom \@indentfromtrue
+\newcommand*{\noindentfrom}{\@indentfromfalse}
+\newcommand*{\indentfrom}{\@indentfromtrue}
+
+% Redefine \opening to respect @indentfrom, and put in \noindent commands
+% to support proper handling of \parindent.
+\renewcommand*{\opening}[1]{%
+  \thispagestyle{firstpage}%
+  \noindent
+  \ifx\@empty\fromaddress{%
+    \if@indentfrom\raggedleft\fi%
+    \@date\par%
+  }%
+  \else{% home address
+    \if@indentfrom\raggedleft\fi%
+    \begin{tabular}{@{}l@{}}%
+      \ignorespaces
+      \fromaddress \\*[2\parskip]%
+      \@date%
+    \end{tabular}\par%
+  }%
+  \fi%
+  \vspace{2\parskip}%
+  {\raggedright \toname \\ \toaddress \par}%
+  \vspace{2\parskip}%
+  % Added subject handling, for really formal business letters.
+  \ifx\@empty\thesubject\else%
+    \centerline{\bfseries \thesubject}\par%
+    \vspace{2\parskip}\fi%
+  \noindent#1\par\nobreak%
+}
+
+%%%%%%%%%%
+%% CLOSING
+%%%%%%%%%%
+% @indentsig is used to determine if the signature block should be indented.
+\newif \if@indentsig \@indentsigtrue
+\newcommand*{\noindentsig}{\@indentsigfalse}
+\newcommand*{\indentsig}{\@indentsigtrue}
+
+% Redefine \opening to respect @indentsig.
+\renewcommand{\closing}[1]{%
+  \par\nobreak\vspace{\parskip}%
+  \stopbreaks
+  \noindent
+  \if@indentsig
+    \hspace*{\longindentation}%
+  \fi
+  \parbox{\indentedwidth}{%
+    \raggedright
+    \ignorespaces #1\\[6\medskipamount]%
+    % Added office handling, so that it can automatically put in your title.
+    \ifx\@empty\fromsig
+      \fromname \\ \fromoffice
+    \else \fromsig \fi\strut%
+  }%
+  \par%
+  \vspace{2\parskip}%
+}
+
+% Redefine the \ps command to make postscripts always flush left.
+\renewcommand{\ps}{\par\startbreaks\noindent}
+
+\endinput

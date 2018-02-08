@@ -1,0 +1,112 @@
+% http://tex.stackexchange.com/questions/357020/latex-output-custom-commands-used-in-current-section
+\documentclass{scrartcl}
+
+\usepackage{refcount}
+\usepackage{xparse}
+\usepackage[x11names]{xcolor}
+\usepackage{tcolorbox}
+
+\newcommand{\speechboxblack}[3]{\leavevmode\begin{tcolorbox}[before={},after={},title=#1,colframe=#2,coltitle=black]#3\end{tcolorbox}}
+
+\newcommand{\tomh}{asdf tom}
+\newcommand{\frodoh}{sadf frodo}
+\newcommand{\gandalfh}{•asdf gandalf}
+
+\ExplSyntaxOn
+\seq_new:N \g_luke_listofpersons_seq
+\seq_new:N \l_luke_listofpersons_seq 
+
+
+\NewDocumentCommand{\addperson}{m}{%
+  \seq_gput_right:Nn \g_luke_listofpersons_seq {#1}
+  \seq_gremove_duplicates:N \g_luke_listofpersons_seq
+}
+
+
+\NewDocumentCommand{\addpersonlocal}{m}{%
+  \seq_gput_right:Nn \l_luke_listofpersons_seq {#1}
+}
+
+\cs_new:Npn \IfPersonCalledAlreadyF #1#2 {%
+  \seq_if_in:NnF \l_luke_listofpersons_seq {#1} {#2}
+}
+
+\NewDocumentCommand{\DisplayPersons}{}{%
+  \seq_clear:N \l_luke_listofpersons_seq
+  \group_begin:
+  \seq_clear:N \l_tmpa_seq
+  \seq_map_inline:Nn \g_luke_listofpersons_seq {%
+    \IfRefUndefinedExpandable{##1\thesection}{}{
+      \seq_put_right:Nn \l_tmpa_seq {\displayindividualperson{##1}}
+     }
+   }
+   \seq_if_empty:NF \l_tmpa_seq {
+     \PrePersonList
+     \seq_use:Nn \l_tmpa_seq {,~} 
+     \PostPersonList
+   }
+   \group_end:
+
+}
+\ExplSyntaxOff
+
+\NewDocumentCommand{\PostPersonList}{}{%
+  \bigskip%
+
+}
+
+\NewDocumentCommand{\displayindividualperson}{m}{%
+  %\textbf{#1}%
+  \expandafter\csname #1h \endcsname
+}
+
+\NewDocumentCommand{\PrePersonList}{}{%
+  {\large \bfseries Persons in Section \thesection}
+
+}
+
+\makeatletter
+\NewDocumentCommand{\NewPerson}{mm}{%
+  % Add this person to the global list
+  \addperson{#1}%
+  % Now define the personal \...x command 
+  \expandafter\NewDocumentCommand\csname #1x\endcsname{+m}{%
+    %Check if the person has been called in the local section already
+    \IfPersonCalledAlreadyF{#1}{%
+      \addpersonlocal{#1}
+      % Add the personal to the local list, i.e. per section
+      % Check whether the label has been defined already
+        \protected@edef\@currentlabel{\thesection.#1}\label{#1\thesection}
+    }%
+    %\textsc{#1:} ##1%
+    \speechboxblack{#1}{#2}{##1}
+  }% End of the \...x command
+}% End of \NewPerson
+\makeatother
+
+
+\NewPerson{tom}{gray}
+\NewPerson{frodo}{black}
+\NewPerson{Gandalf}{white}
+
+
+
+\begin{document}
+\section{In the supermarket}
+\DisplayPersons
+\tomx{Hi, I'm Tom!}
+
+\frodox{Hi, I'm Frodo!}
+
+\section{At TeX.SE}
+
+\DisplayPersons
+
+\frodox{Hi, I'm Frodo!}
+
+\frodox{I am going to Mordor}
+
+\Gandalfx{Cast the ring into the fire!}
+
+\tomx{Waiting for Godot}
+\end{document}

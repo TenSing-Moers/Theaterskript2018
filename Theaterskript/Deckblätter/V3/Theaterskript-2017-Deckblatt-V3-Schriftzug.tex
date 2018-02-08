@@ -1,0 +1,33 @@
+\documentclass[oneside,12pt,enabledeprecatedfontcommands]{scrreprt}
+\usepackage{graphicx}
+\usepackage[ngerman]{babel} %Deutsche Sprachunterstützung
+\usepackage{scrpage2} %Kopf- und Fußzeilen
+\usepackage[utf8]{inputenc} %Umlaute
+\usepackage{eso-pic} % background
+\usepackage{soul} %Striketrough \st{}
+\usepackage{scrpage2}
+\pagestyle{scrheadings}
+
+\newcommand\AtPageUpperRight[1]{\AtPageUpperLeft{%
+ \put(\LenToUnit{\paperwidth},\LenToUnit{0\paperheight}){#1}%
+ }}%
+ 
+ \newcommand\BackgroundPic{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[width=\paperwidth,height=\paperheight,%
+keepaspectratio]{../../res/Background/Disney_Background}%
+\vfill
+}}}
+
+\begin{document}
+%\AddToShipoutPicture*{\BackgroundPic}
+\cofoot{}
+\begin{center}
+\phantom{asdf}
+\vspace{-2.5cm}
++++ Version 3 vom 17. März 2017 +++
+\end{center}
+\end{document}

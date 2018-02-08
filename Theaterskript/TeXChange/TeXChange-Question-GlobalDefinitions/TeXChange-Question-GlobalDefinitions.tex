@@ -1,0 +1,29 @@
+\documentclass{minimal}
+\usepackage{xparse}
+
+\makeatletter
+    \NewDocumentCommand{\NewPerson}{m}{%
+      \expandafter\NewDocumentCommand\csname #1x\endcsname{+m}{%
+        #1: \textbf{##1}\par%
+      }
+      \expandafter\NewDocumentCommand\csname #1h\endcsname{}{%
+        \textsc{#1}%
+      }
+    }
+\makeatother
+
+\begin{document}
+\NewPerson{thomas}
+\thomasx{asdf}
+\thomash
+
+{
+\NewPerson{elvis}
+\elvisx{asdf}
+\elvish
+}
+
+\elvisx{asdf}
+\elvish
+
+\end{document}

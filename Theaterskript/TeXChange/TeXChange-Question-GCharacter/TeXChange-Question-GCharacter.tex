@@ -1,0 +1,28 @@
+\documentclass[a4paper]{scrartcl}
+\usepackage{dramatist}
+\usepackage{lipsum}
+
+% \makeatletter
+\renewcommand\GCharacter[3]{
+    \stepcounter{g\Roman{character}}
+    \global\@namedef{#3}{{\namefont #2}\xspace}
+    \global\n@me@ppend@nddef{#3}{\@ppendname}{%
+        \if@drverse
+            {\speakstab\speaksfont #2\speaksdel\par\nobreak\addvspace{-\parskip}}
+        \else
+            \item[#2\speaksdel]
+        \fi}
+    \global\n@me@ppend@nddef{gpersona@\Roman{character}}{%
+        @\Roman{g\Roman{character}}}{\castfont #1}
+}
+% \makeatother
+
+\begin{CharacterGroup}{TeX.SX}
+\GCharacter{A Character}{A Character}{character}
+\end{CharacterGroup}
+
+\begin{document}
+\DramPer
+
+\lipsum[1] % Compilation fails with only \DramPer in document
+\end{document}

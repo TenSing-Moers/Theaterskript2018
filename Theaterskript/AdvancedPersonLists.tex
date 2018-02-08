@@ -1,0 +1,90 @@
+% After some kind answer on http://tex.stackexchange.com/questions/357020/latex-output-custom-commands-used-in-current-section
+
+\usepackage{refcount}
+\usepackage{xparse}
+
+\ExplSyntaxOn
+\seq_new:N \g_luke_listofpersons_seq
+\seq_new:N \l_luke_listofpersons_seq 
+
+
+\NewDocumentCommand{\addperson}{m}{%
+  \seq_gput_right:Nn \g_luke_listofpersons_seq {#1}
+  \seq_gremove_duplicates:N \g_luke_listofpersons_seq
+}
+
+
+\NewDocumentCommand{\addpersonlocal}{m}{%
+  \seq_gput_right:Nn \l_luke_listofpersons_seq {#1}
+}
+
+\cs_new:Npn \IfPersonCalledAlreadyF #1#2 {%
+  \seq_if_in:NnF \l_luke_listofpersons_seq {#1} {#2}
+}
+
+\NewDocumentCommand{\DisplayPersons}{}{%
+  \seq_clear:N \l_luke_listofpersons_seq
+  \group_begin:
+  \seq_clear:N \l_tmpa_seq
+  \seq_map_inline:Nn \g_luke_listofpersons_seq {%
+    \IfRefUndefinedExpandable{##1\thesection}{}{
+      \seq_put_right:Nn \l_tmpa_seq {\use:c{##1h}}
+     }
+   }
+   \seq_if_empty:NF \l_tmpa_seq {
+     \PrePersonList
+     \seq_use:Nn \l_tmpa_seq {,~} % this is the delimiter
+     \PostPersonList
+   }
+   \group_end:
+
+}
+\ExplSyntaxOff
+
+\NewDocumentCommand{\PostPersonList}{}{%
+  \bigskip%
+
+}
+
+\NewDocumentCommand{\displayindividualperson}{m}{%
+  \textbf{#1}%
+}
+
+\NewDocumentCommand{\PrePersonList}{}{%
+  {\large \bfseries Charaktere:}%
+}
+
+\makeatletter
+\NewDocumentCommand{\NewPerson}{m+m+m+m}{%
+  % Add this person to the global list
+  \addperson{#2}%
+  % Now define the personal \...x command 
+  \expandafter\NewDocumentCommand\csname #2\endcsname{}{%
+    \textsc{#1} %
+  }
+  \expandafter\NewDocumentCommand\csname #2x\endcsname{+m}{%
+    %Check if the person has been called in the local section already
+    \IfPersonCalledAlreadyF{#2}{%
+      \addpersonlocal{#2}
+      % Add the personal to the local list, i.e. per section
+      % Check whether the label has been defined already
+        \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
+    }%
+    \speechbox{#1}{#3}{#4}{##1}%
+  } % defines \<charactername>x-command for speech
+  \expandafter\NewDocumentCommand\csname #2h\endcsname{}{%
+  %Check if the person has been called in the local section already
+    \IfPersonCalledAlreadyF{#2}{%
+      \addpersonlocal{#2}
+      % Add the personal to the local list, i.e. per section
+      % Check whether the label has been defined already
+        \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
+    }%
+    \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}
+%    \begin{mycolorbox}[colback=#3]
+%    \textsc{\textcolor{#4}{#1}}
+%    \end{mycolorbox}
+    %\colorbox{#3}{\strut\textcolor{#4}{#1}} %
+  } % defines \<charactername>h-command for inline highlighting
+}% End of \NewPerson
+\makeatother

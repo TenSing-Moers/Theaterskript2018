@@ -1,0 +1,82 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.22)  26 JAN 2016 22:05
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**drama.sty
+(./drama.sty
+LaTeX2e <2015/01/01>
+Babel <3.9l> and hyphenation patterns for 79 languages loaded.
+
+LaTeX Warning: You have requested package `',
+               but the package provides `drama'.
+
+Package: drama 1996/05/05 v0.2 drama package (Frankenstein's heart)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/frankenstein/abbrevs.sty
+Package: abbrevs 2001/09/08 v1.4 abbreviation macros (Frankenstein's briefs)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/frankenstein/moredefs.sty
+Package: moredefs 2001/08/31 v1.8 more defining commands (Frankenstein's brain)
+
+\sc@toks@a=\toks14
+\sc@toks@b=\toks15
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/frankenstein/slemph.sty
+Package: slemph 1999/02/25 v1.2 slanted emphasis (Frankenstein's gait)
+LaTeX Info: Redefining \itswitch on input line 177.
+LaTeX Info: Redefining \slswitch on input line 186.
+LaTeX Info: Redefining \textitswitch on input line 195.
+LaTeX Info: Redefining \textslswitch on input line 196.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/frankenstein/slemph.cfg
+File: slemph.cfg 
+))
+\c@tm@util=\count79
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/frankenstein/abbrevs.cfg
+File: abbrevs.cfg 
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+
+
+Package relsize Warning: Failed to get list of defined font sizes.
+(relsize)                Size scaling will attempt arbitrary sizes..
+
+))) (./bits.sty
+Package: bits 2001/08/31 v1.2 basic bits (Frankenstein's guts)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/frankenstein/blkcntrl.sty
+Package: blkcntrl 2001/08/31 v1.2 block control
+
+
+/usr/local/texlive/2015/texmf-dist/tex/latex/frankenstein/blkcntrl.sty:260: LaT
+eX Error: Environment verse undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.260 \renewenvironment{verse}
+                              
+? 
+/usr/local/texlive/2015/texmf-dist/tex/latex/frankenstein/blkcntrl.sty:260: Eme
+rgency stop.
+ ...                                              
+                                                  
+l.260 \renewenvironment{verse}
+                              
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+ 
+Here is how much of TeX's memory you used:
+ 324 strings out of 493089
+ 4703 string characters out of 6134841
+ 56412 words of memory out of 5000000
+ 3883 multiletter control sequences out of 15000+600000
+ 3640 words of font info for 14 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 25i,0n,19p,193b,20s stack positions out of 5000i,500n,10000p,200000b,80000s
+/usr/local/texlive/2015/texmf-dist/tex/latex/frankenstein/blkcntrl.sty:260:  ==
+> Fatal error occurred, no output PDF file produced!
