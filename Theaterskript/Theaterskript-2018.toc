@@ -1,0 +1,23 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {0.1}Rollen}{3}{section.0.1}
+\contentsline {subsection}{\numberline {0.1.1}Wetten, dass...?!}{3}{subsection.0.1.1}
+\contentsline {subsection}{\numberline {0.1.2}Die Guten}{3}{subsection.0.1.2}
+\contentsline {subsection}{\numberline {0.1.3}Die B\IeC {\"o}sen}{3}{subsection.0.1.3}
+\contentsline {subsection}{\numberline {0.1.4}Die Manager}{3}{subsection.0.1.4}
+\contentsline {section}{Szene\ I~Wetten, dass...?!}{3}{section*.2}
+\contentsline {section}{Szene\ II~Der N\IeC {\"a}chste, bitte\dots }{10}{section*.3}
+\contentsline {section}{Szene\ III~Was ist hier eigentlich los?}{14}{section*.4}
+\contentsline {section}{\numberline {3.1}Der Neue}{16}{section.3.1}
+\contentsline {section}{Szene\ IV~Pilze sammeln mit ungeahnten Folgen}{20}{section*.5}
+\contentsline {section}{Szene\ V~Ein Gefangener}{24}{section*.6}
+\contentsline {section}{Szene\ VI~Im Schloss der Roten K\IeC {\"o}nigin}{27}{section*.7}
+\contentsline {section}{Szene\ VII~Der gro\IeC {\ss }e Plan}{30}{section*.8}
+\contentsline {section}{Szene\ VIII~Vor der Schokoladenfabrik}{33}{section*.9}
+\contentsline {section}{\numberline {8.1}Der \IeC {\"U}berfall}{36}{section.8.1}
+\contentsline {section}{Szene\ IX~\IeC {\"U}berraschende Rettung (durch Riesenadler?)}{39}{section*.10}
+\contentsline {section}{Szene\ X~Eine gegl\IeC {\"u}ckte Mission}{43}{section*.11}
+\contentsline {section}{\numberline {10.1}Das Gegengift}{45}{section.10.1}
+\contentsline {section}{Szene\ XI~Schrecklich gute Neuigkeiten}{48}{section*.12}
+\contentsline {section}{Szene\ XII~HARIBO\textsuperscript {\copyright \unhbox \voidb@x \hbox {$\mathsurround \z@ \mathchar "472$}} Goldb\IeC {\"a}ren\textsuperscript {TM \copyright \unhbox \voidb@x \hbox {$\mathsurround \z@ \mathchar "472$}}}{51}{section*.13}
+\contentsline {section}{Szene\ XIII~Elronds Rat}{55}{section*.14}
+\contentsline {section}{Szene\ XIV~Und wenn sie nicht gestorben sind\dots }{58}{section*.15}
