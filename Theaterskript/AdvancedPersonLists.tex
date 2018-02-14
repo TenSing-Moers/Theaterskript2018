@@ -69,6 +69,13 @@
   {\large \bfseries Charaktere:}%
 }
 
+% \NewPerson: Creates a new Person with its respective commands
+% First Argument:  The Person's full name (as shown in the document)
+% Second Argument: The Person's short name (used for the command creation)
+% Third Argument:  The Person's highlight color (used for highlighting and 
+%                  colored boxes).
+% Fourth Argument: The Person's text color (used for displaying the person's
+%                  name on the colored background).
 \makeatletter
 \NewDocumentCommand{\NewPerson}{m+m+m+m}{%
   % Add this person to the global list
@@ -96,10 +103,6 @@
         \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
     }%
     \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}
-%    \begin{mycolorbox}[colback=#3]
-%    \textsc{\textcolor{#4}{#1}}
-%    \end{mycolorbox}
-    %\colorbox{#3}{\strut\textcolor{#4}{#1}} %
   } % defines \<charactername>h-command for inline highlighting
 }% End of \NewPerson
 \makeatother
