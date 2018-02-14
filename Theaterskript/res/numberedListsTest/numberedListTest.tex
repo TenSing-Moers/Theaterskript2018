@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{xparse}
+\ExplSyntaxOn
+\NewDocumentCommand{\newgniourflist}{ m }
+ {
+  \seq_new:c { g_gniourf_#1_seq }
+ }
+\newgniourflist{gniourflist}
+\NewDocumentCommand{\addtogniourflist}{ O{gniourflist} m }
+ {
+  \seq_gput_right:cn { g_gniourf_#1_seq } { #2 }
+ }
+\NewExpandableDocumentCommand{\getnthelement}{ O{gniourflist} m }
+ {
+  \seq_item:cn { g_gniourf_#1_seq } { #2 }
+ }
+\NewDocumentCommand{\storenthelement}{ O{gniourflist} m m }
+ {
+  \cs_set:Npx #3 { \seq_item:cn { g_gniourf_#1_seq } { #2 } }
+ }
+\NewDocumentCommand{\cleargniourflist}{ O{gniourflist} }
+ {
+  \seq_gclear:c { g_gniourf_#1_seq }
+ }
+\ExplSyntaxOff
+
+\newcommand{\fourthelement}{\getnthelement{4}}
+
+\begin{document}
+
+\addtogniourflist{first element}
+\addtogniourflist{second element}
+\addtogniourflist{third element}
+\addtogniourflist{fourth element}
+\addtogniourflist{fifth element}
+
+\begin{itemize}
+\item The third element is: ``\getnthelement{3}''.
+\item The fourth element is: ``\fourthelement''.
+\item The fourth element again: ``\fourthelement''.
+\item The fifth element is: ``\getnthelement{5}''.
+\end{itemize}
+
+\storenthelement{4}{\playaroundelement}
+
+\texttt{\meaning\playaroundelement}
+
+\end{document}
