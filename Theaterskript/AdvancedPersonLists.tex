@@ -20,6 +20,9 @@
 
 \input{colorLists}
 
+% number of the next color to use when none is specified.
+\newcounter{colornumber}
+
 \ExplSyntaxOn
 \seq_new:N \g_luke_listofpersons_seq
 \seq_new:N \l_luke_listofpersons_seq 
@@ -129,7 +132,7 @@
       % Check whether the label has been defined already
         \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
     }%
-    \speechbox{#1}{#3}{#4}{##1}%
+    \speechbox{#1}{\getnthelement{highlightcolors}{\value{colornumber}}}{\getnthelement{textcolors}{\value{colornumber}}}{##1}%
   } % defines \<charactername>x-command for speech
   \expandafter\NewDocumentCommand\csname #2h\endcsname{}{%
   %Check if the person has been called in the local section already
@@ -139,7 +142,8 @@
       % Check whether the label has been defined already
         \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
     }%
-    \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}
+    \boxcommand{\getnthelement{highlightcolors}{\value{colornumber}}}{\strut\textcolor{\getnthelement{textcolors}{\value{colornumber}}}{\textsc{#1}}}
   } % defines \<charactername>h-command for inline highlighting
+\stepcounter{colornumber}
 }% End of \NewPerson
 \makeatother

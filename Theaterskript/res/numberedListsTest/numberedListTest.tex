@@ -27,18 +27,20 @@
 \newcommand{\fourthelement}{\getnthelement{4}}
 
 \begin{document}
-
 \addtonumberedlist{first element}
 \addtonumberedlist{second element}
 \addtonumberedlist{third element}
 \addtonumberedlist{fourth element}
 \addtonumberedlist{fifth element}
 
+\newnumberedlist{numberedlisttwo}
+\addtonumberedlist[numberedlisttwo]{test}
 \begin{itemize}
 \item The third element is: ``\getnthelement{3}''.
 \item The fourth element is: ``\fourthelement''.
 \item The fourth element again: ``\fourthelement''.
 \item The fifth element is: ``\getnthelement{5}''.
+\item Numberedlisttwo contains: \getnthelement[numberedlisttwo]{1}
 \end{itemize}
 
 \storenthelement{4}{\playaroundelement}
