@@ -117,7 +117,7 @@
 % First Argument:  The Person's full name (as shown in the document)
 % Second Argument: The Person's short name (used for the command creation)
 \makeatletter
-\NewDocumentCommand{\NewPerson}{m+m}{%
+\NewDocumentCommand{\NewPersonAutoColor}{m+m}{%
   % Add this person to the global list
   \addperson{#2}%
   % Now define the personal \...x command 
