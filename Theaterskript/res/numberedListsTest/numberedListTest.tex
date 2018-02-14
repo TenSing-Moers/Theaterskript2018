@@ -1,26 +1,26 @@
 \documentclass{article}
 \usepackage{xparse}
 \ExplSyntaxOn
-\NewDocumentCommand{\newgniourflist}{ m }
+\NewDocumentCommand{\newnumberedlist}{ m }
  {
-  \seq_new:c { g_gniourf_#1_seq }
+  \seq_new:c { g_numbered_#1_seq }
  }
-\newgniourflist{gniourflist}
-\NewDocumentCommand{\addtogniourflist}{ O{gniourflist} m }
+\newnumberedlist{numberedlist}
+\NewDocumentCommand{\addtonumberedlist}{ O{numberedlist} m }
  {
-  \seq_gput_right:cn { g_gniourf_#1_seq } { #2 }
+  \seq_gput_right:cn { g_numbered_#1_seq } { #2 }
  }
-\NewExpandableDocumentCommand{\getnthelement}{ O{gniourflist} m }
+\NewExpandableDocumentCommand{\getnthelement}{ O{numberedlist} m }
  {
-  \seq_item:cn { g_gniourf_#1_seq } { #2 }
+  \seq_item:cn { g_numbered_#1_seq } { #2 }
  }
-\NewDocumentCommand{\storenthelement}{ O{gniourflist} m m }
+\NewDocumentCommand{\storenthelement}{ O{numberedlist} m m }
  {
-  \cs_set:Npx #3 { \seq_item:cn { g_gniourf_#1_seq } { #2 } }
+  \cs_set:Npx #3 { \seq_item:cn { g_numbered_#1_seq } { #2 } }
  }
-\NewDocumentCommand{\cleargniourflist}{ O{gniourflist} }
+\NewDocumentCommand{\clearnumberedlist}{ O{numberedlist} }
  {
-  \seq_gclear:c { g_gniourf_#1_seq }
+  \seq_gclear:c { g_numbered_#1_seq }
  }
 \ExplSyntaxOff
 
@@ -28,11 +28,11 @@
 
 \begin{document}
 
-\addtogniourflist{first element}
-\addtogniourflist{second element}
-\addtogniourflist{third element}
-\addtogniourflist{fourth element}
-\addtogniourflist{fifth element}
+\addtonumberedlist{first element}
+\addtonumberedlist{second element}
+\addtonumberedlist{third element}
+\addtonumberedlist{fourth element}
+\addtonumberedlist{fifth element}
 
 \begin{itemize}
 \item The third element is: ``\getnthelement{3}''.
