@@ -1,0 +1,83 @@
+% This file is part of TenSing-Moers/Theaterskript2018.
+%
+% TenSing-Moers/Theaterskript2018 is free content: you can redistribute and/or
+% modify it under the terms of the cc-by-nc-sa (Creative Commons
+% Attribution-NonCommercial-ShareAlike) as released by the
+% Creative Commons organisation, version 4.0.
+%
+% TenSing-Moers/Theaterskript2018 is distributed in the hope that it will be useful,
+% but without any warranty.
+%
+% You should have received a copy of the cc-by-nc-sa-license along
+% with this copy of TenSing-Moers/Theaterkskript2018. If not, see
+% <https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode>.
+%
+% Copyright TenSing Moers and all whose work and <3 went in this project.
+% After some kind answer on http://tex.stackexchange.com/questions/357020/latex-output-custom-commands-used-in-current-section
+
+\usepackage{refcount}
+\usepackage{xparse}
+
+\ExplSyntaxOn
+\seq_new:N \l_luke_listofrequisites_seq 
+
+\NewDocumentCommand{\addpersonlocal}{m}{%
+  \seq_gput_right:Nn \l_luke_listofrequisites_seq {#1}
+}
+
+\cs_new:Npn \IfPersonCalledAlreadyF #1#2 {%
+  \seq_if_in:NnF \l_luke_listofrequisites_seq {#1} {#2}
+}
+
+\NewDocumentCommand{\DisplayPersons}{}{%
+  \seq_clear:N \l_luke_listofrequisites_seq
+  \group_begin:
+  \seq_clear:N \l_tmpa_seq
+  \seq_map_inline:Nn \g_luke_listofrequisites_seq {%
+    \IfRefUndefinedExpandable{##1\thesection}{}{
+      \seq_put_right:Nn \l_tmpa_seq {\use:c{##1h}}
+     }
+   }
+   \seq_if_empty:NF \l_tmpa_seq {
+     \PreRequisiteList
+     \seq_use:Nn \l_tmpa_seq {,~} % this is the delimiter
+     \PostRequisiteList
+   }
+   \group_end:
+
+}
+\ExplSyntaxOff
+
+\NewDocumentCommand{\PostRequisiteList}{}{%
+  \bigskip%
+
+}
+
+\NewDocumentCommand{\displayindividualrequisite}{m}{%
+  \textbf{#1}%
+}
+
+\NewDocumentCommand{\PreRequisiteList}{}{%
+  {\large \bfseries Charaktere:}%
+}
+
+% \NewPerson: Creates a new Person with its respective commands
+% First Argument:  The Person's full name (as shown in the document)
+% Second Argument: The Person's short name (used for the command creation)
+% Third Argument:  The Person's highlight color (used for highlighting and 
+%                  colored boxes).
+% Fourth Argument: The Person's text color (used for displaying the person's
+%                  name on the colored background).
+\makeatletter
+\NewDocumentCommand{\requisite}{m}{%
+  \typeout{Using requisite #1...}
+  %Check if the person has been called in the local section already
+  \IfRequisiteCalledAlreadyF{#1}{%
+    \addrequisitelocal{#1}
+    % Add the personal to the local list, i.e. per section
+    % Check whether the label has been defined already
+    \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
+  }%
+    \boxcommand{grey}{\strut\textcolor{black}{\textsc{#1}}}
+}% End of \NewPerson
+\makeatother
