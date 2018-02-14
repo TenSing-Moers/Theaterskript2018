@@ -21,30 +21,19 @@
 \ExplSyntaxOn
 \seq_new:N \l_luke_listofrequisites_seq 
 
-\NewDocumentCommand{\addpersonlocal}{m}{%
+\NewDocumentCommand{\addrequisitelocal}{m}{%
   \seq_gput_right:Nn \l_luke_listofrequisites_seq {#1}
 }
 
-\cs_new:Npn \IfPersonCalledAlreadyF #1#2 {%
+\cs_new:Npn \IfRequisiteCalledAlreadyF #1#2 {%
   \seq_if_in:NnF \l_luke_listofrequisites_seq {#1} {#2}
 }
 
-\NewDocumentCommand{\DisplayPersons}{}{%
-  \seq_clear:N \l_luke_listofrequisites_seq
-  \group_begin:
-  \seq_clear:N \l_tmpa_seq
-  \seq_map_inline:Nn \g_luke_listofrequisites_seq {%
-    \IfRefUndefinedExpandable{##1\thesection}{}{
-      \seq_put_right:Nn \l_tmpa_seq {\use:c{##1h}}
-     }
-   }
-   \seq_if_empty:NF \l_tmpa_seq {
-     \PreRequisiteList
-     \seq_use:Nn \l_tmpa_seq {,~} % this is the delimiter
-     \PostRequisiteList
-   }
-   \group_end:
-
+\NewDocumentCommand{\DisplayRequisites}{}{%
+  %\seq_clear:N \l_luke_listofrequisites_seq
+  \PreRequisiteList
+  \seq_use:Nn \l_luke_listofrequisites_seq {,~} % this is the delimiter
+  \PostRequisiteList
 }
 \ExplSyntaxOff
 
@@ -69,15 +58,15 @@
 % Fourth Argument: The Person's text color (used for displaying the person's
 %                  name on the colored background).
 \makeatletter
-\NewDocumentCommand{\requisite}{m}{%
+\NewDocumentCommand{\requisite}{m+m}{%
   \typeout{Using requisite #1...}
   %Check if the person has been called in the local section already
-  \IfRequisiteCalledAlreadyF{#1}{%
-    \addrequisitelocal{#1}
+%  \IfRequisiteCalledAlreadyF{#1}{%
+  \addrequisitelocal{#1}
     % Add the personal to the local list, i.e. per section
     % Check whether the label has been defined already
-    \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
-  }%
-    \boxcommand{grey}{\strut\textcolor{black}{\textsc{#1}}}
+  \protected@edef\@currentlabel{\thesection.#1}\label{#1\thesection}
+  %}%
+    \boxcommand{grey}{\strut\textcolor{black}{\textsc{#2}}}
 }% End of \NewPerson
 \makeatother
