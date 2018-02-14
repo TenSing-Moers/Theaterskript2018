@@ -83,6 +83,7 @@
 %                  name on the colored background).
 \makeatletter
 \NewDocumentCommand{\NewPerson}{m+m+m+m}{%
+\typeout{Creating Person #1...}
   % Add this person to the global list
   \addperson{#2}%
   % Now define the personal \...x command 
@@ -118,6 +119,7 @@
 % Second Argument: The Person's short name (used for the command creation)
 \makeatletter
 \NewDocumentCommand{\NewPersonAutoColor}{m+m}{%
+  \typeout{Creating Person #1 with automatic colors...}
   % Add this person to the global list
   \addperson{#2}%
   % Now define the personal \...x command 
