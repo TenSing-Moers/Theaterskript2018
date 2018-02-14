@@ -17,7 +17,6 @@
 \input{AdvancedPersonLists}
 
 \typeout{Starting creation of persons...}
-% Hier standen ehemals die Definitionen der \<charactername>x und \<charactername>h-commandos.
 \NewPersonAutoColor{Mila Monolog}{milam}%{milamc}{black}
 \NewPersonAutoColor{Mila Dialog}{milad}%{miladc}{black}
 \NewPersonAutoColor{Albert Einstein}{albert}%{albertc}{black}
@@ -39,8 +38,6 @@
 
 \newcommand{\customx}[2]{\speechbox{\textsc{#1}}{grey}{white}{#2}}
 \newcommand{\customh}[1]{ \boxcommand{grey}{\strut\textcolor{white}{#1} }}
-
-\newcommand{\krawatte}{\direct{Richtet Krawatte} }
 
 \newcommand\AtPageUpperRight[1]{\AtPageUpperLeft{%
  \put(\LenToUnit{\paperwidth},\LenToUnit{0\paperheight}){#1}%
