@@ -22,7 +22,7 @@
 
 % number of the next color to use when none is specified.
 \newcounter{colornumber}
-\stepcounter{colornumber}\stepcounter{colornumber}
+\stepcounter{colornumber}
 
 \ExplSyntaxOn
 \seq_new:N \g_luke_listofpersons_seq
@@ -84,7 +84,7 @@
 %                  name on the colored background).
 \makeatletter
 \NewDocumentCommand{\NewPerson}{m+m+m+m}{%
-\typeout{Creating person #1...}
+  \typeout{Creating person #1...}
   % Add this person to the global list
   \addperson{#2}%
   % Now define the personal \...x command 
@@ -114,16 +114,14 @@
 }% End of \NewPerson
 \makeatother
 
-% \NewPerson: Creates a new Person with its respective commands
+% \NewPerson: Creates a new Person with its respective commands. The colors
+% are taken from the 26 colors in the highlightcolors- and textcolors-lists.
 % First Argument:  The Person's full name (as shown in the document)
 % Second Argument: The Person's short name (used for the command creation)
-% Third Argument:  The Person's highlight color (used for highlighting and 
-%                  colored boxes).
-% Fourth Argument: The Person's text color (used for displaying the person's
-%                  name on the colored background).
 \makeatletter
 \NewDocumentCommand{\NewPersonAutoColor}{m+m}{%
-\typeout{Creating person #1...}
+  \typeout{Creating Person #1 with automatic colors...}
+  \edef\currentnumber{\value{colornumber}}
   % Add this person to the global list
   \addperson{#2}%
   % Now define the personal \...x command 
@@ -138,7 +136,7 @@
       % Check whether the label has been defined already
         \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
     }%
-    \speechbox{#1}{#3}{#4}{##1}%
+    \speechbox{#1}{\getnthelement[highlightcolors]{\currentnumber}}{\getnthelement[textcolors]{\currentnumber}}{##1}%
   } % defines \<charactername>x-command for speech
   \expandafter\NewDocumentCommand\csname #2h\endcsname{}{%
   %Check if the person has been called in the local section already
@@ -148,7 +146,8 @@
       % Check whether the label has been defined already
         \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
     }%
-    \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}
+    \boxcommand{\getnthelement[highlightcolors]{\currentnumber}}{\strut\textcolor{\getnthelement[textcolors]{\currentnumber}}{\textsc{#1}}}
   } % defines \<charactername>h-command for inline highlighting
+\stepcounter{colornumber}
 }% End of \NewPerson
 \makeatother
