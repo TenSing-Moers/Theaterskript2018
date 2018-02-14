@@ -22,7 +22,7 @@
 
 % number of the next color to use when none is specified.
 \newcounter{colornumber}
-\stepcounter{colornumber}
+\stepcounter{colornumber}\stepcounter{colornumber}
 
 \ExplSyntaxOn
 \seq_new:N \g_luke_listofpersons_seq
@@ -122,6 +122,8 @@
 \NewDocumentCommand{\NewPersonAutoColor}{m+m}{%
   \typeout{Creating Person #1 with automatic colors...}
   \edef\currentnumber{\value{colornumber}}
+  \expandafter\edef\#1textcolor{\getnthelement[textcolors]{\currentnumber}}
+  \edef\currenthighlightcolor{\getnthelement[highlightcolors]{\currentnumber}}
   % Add this person to the global list
   \addperson{#2}%
   % Now define the personal \...x command 
@@ -136,7 +138,7 @@
       % Check whether the label has been defined already
         \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
     }%
-    \speechbox{#1}{\getnthelement[highlightcolors]{\currentnumber}}{\getnthelement[textcolors]{\currentnumber}}{##1}%
+    \speechbox{#1}{\currenthighlightcolor}{\currenttextcolor}{##1}%
   } % defines \<charactername>x-command for speech
   \expandafter\NewDocumentCommand\csname #2h\endcsname{}{%
   %Check if the person has been called in the local section already
@@ -146,7 +148,7 @@
       % Check whether the label has been defined already
         \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
     }%
-    \boxcommand{\getnthelement[highlightcolors]{\currentnumber}}{\strut\textcolor{\getnthelement[textcolors]{\currentnumber}}{\textsc{#1}}}
+    \boxcommand{\currenthighlightcolor}{\strut\textcolor{\currenttextcolor}{\textsc{#1}}}
   } % defines \<charactername>h-command for inline highlighting
 \stepcounter{colornumber}
 }% End of \NewPerson
