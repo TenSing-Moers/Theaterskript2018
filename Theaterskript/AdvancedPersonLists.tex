@@ -28,21 +28,26 @@
 \seq_new:N \g_luke_listofpersons_seq
 \seq_new:N \l_luke_listofpersons_seq 
 
-
+% adds the person to the global list
 \NewDocumentCommand{\addperson}{m}{%
   \seq_gput_right:Nn \g_luke_listofpersons_seq {#1}
   \seq_gremove_duplicates:N \g_luke_listofpersons_seq
 }
 
-
+% adds the person to the local list
 \NewDocumentCommand{\addpersonlocal}{m}{%
   \seq_gput_right:Nn \l_luke_listofpersons_seq {#1}
+%  \edef\sectioncountername{l\thesection}
+%  \expandafter\seq_new:N {\l_\sectioncountername}
+%  \expandafter\seq_gput_right:Nn {\l_\sectioncountername} {#1}
 }
 
+% checks if person is already in the local list
 \cs_new:Npn \IfPersonCalledAlreadyF #1#2 {%
   \seq_if_in:NnF \l_luke_listofpersons_seq {#1} {#2}
 }
 
+% displays all persons in the local list (at least it should...)
 \NewDocumentCommand{\DisplayPersons}{}{%
   \seq_clear:N \l_luke_listofpersons_seq
   \group_begin:
