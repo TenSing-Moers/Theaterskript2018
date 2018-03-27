@@ -24,18 +24,18 @@
 \pagestyle{scrheadings}
 \usepackage{tikz} %Grafiken, ursprünglich für cooleres "hervorheben". Jetzt zur Dekoration der Section Headings!
 %\usetikzlibrary{decorations}
-\usepackage[bookmarks]{hyperref} %Verlinkungen im Inhaltsverzeichnis, um per Klicken zu den entsprechenden Szenen zu springen
+%\usepackage[bookmarks]{hyperref} %Verlinkungen im Inhaltsverzeichnis, um per Klicken zu den entsprechenden Szenen zu springen
 %\usepackage[paper=a4paper,top=20mm,left=20mm,bottom=20mm,right=20mm,headheight=2cm,includehead,includefoot]{geometry} %Seitenrand einstellen
 \usepackage[paper=a4paper,top=20mm,left=20mm,bottom=20mm,right=20mm,headheight=1cm,includefoot]{geometry} %Seitenrand einstellen
-\usepackage{xpatch}
-%\usepackage{showframe}
-\usepackage{titlesec} %Dekoration der Section Headings, s. unten
+%\usepackage{xpatch} % disabled for debugging
+%\usepackage{showframe} % Provides \xapptocmd % disabled for debugging
+%\usepackage{titlesec} %Dekoration der Section Headings, s. unten % disabled for debugging
 \usepackage{setspace} %Zeilenabstand
 \usepackage{soul} %Striketrough \st{}
-\usepackage{amsfonts} %\circledR-Kommando für registered trademark symbol
+%\usepackage{amsfonts} %\circledR-Kommando für registered trademark symbol % disabled for debugging
 \usepackage{multicol}
-\usepackage[pages=some]{background}
-\usepackage{eso-pic} % background
+%\usepackage[pages=some]{background} % disabled for debugging
+%\usepackage{eso-pic} % background % disabled for debugging
 
 % Colorboxen für die hervorgehobenen Namen
 \tcbset{commonstyle/.style={boxrule=0pt,sharp corners,enhanced jigsaw,hbox,nobeforeafter,boxsep=0pt,left=\fboxsep,right=\fboxsep}}
@@ -58,9 +58,10 @@
 \setlength{\dramatextinset}{\dimexpr-\leftmargin+\labelsep}
 \edef\savedfboxsep{\the\fboxsep} %Speichere den fboxsep, da dieser später (lied, tanz, etc.-commands) verändert wird, und offenbar nicht zurückgestellt wird. Dies verursacht Probleme mit den Hervorhebungen der Charakternamen, da das Margin der Highlight-Colorboxen nach einem Aufruf von \lied sehr gering ist.
 
-\xapptocmd{\drama}{%
-\setlength{\parindent}{\dramatextinset}%
-}{\typeout{Success}}{\typeout{Failure}}
+% Disabled for debugging
+%\xapptocmd{\drama}{%
+%\setlength{\parindent}{\dramatextinset}%
+%}{\typeout{Success}}{\typeout{Failure}}
 
 %Übersetzung der standartmäßig englischen Namen "Characters", "Act", "Scene" ins Deutsche
 \renewcommand{\casttitlename}{Personen}
@@ -80,12 +81,13 @@
 \renewcommand{\printscenenum}{\stepcounter{section}\scenenumfont \thescene} %Die Kapitelnummer soll bei jeder neuen Szene hochgezählt werden, damit Unterteilungen mit entsprechenden Nummern möglich sind
 \renewcommand{\printscenetitle}[1]{\scenetitlefont: #1}
 
-%Dekoration der Section Headings
-\titleformat{\section}[block]% Abgewandelt nach http://tex.stackexchange.com/questions/104336/fancy-heading-section-titles-disappears
- {\huge\bfseries\center\sechl}
- {\thesection}%
- {1em}%
- {}
+% disabled for debugging
+%%Dekoration der Section Headings
+%\titleformat{\section}[block]% Abgewandelt nach http://tex.stackexchange.com/questions/104336/fancy-heading-section-titles-disappears
+% {\huge\bfseries\center\sechl}
+% {\thesection}%
+% {1em}%
+% {}
 
 %\StageDirConf{\setlength{\parindent}{0pt}\par\itshape}{}
 %\StageDirConf{\setlength{\parskip}{3mm}\vspace{-1mm}\begin{quote}}{\end{quote}\vspace{-1mm}}
@@ -127,15 +129,16 @@
 \par\fboxsep0mm\colorbox{Green2}{\fboxsep2mm\framebox[0.5\textwidth][l]{\parbox{\linewidth}{\vspace{0mm}\textsc\textbf{Sound: #1}}}}
 \end{flushright}}
 
-\backgroundsetup{
-scale=1,
-color=black,
-opacity=0.4,
-angle=0,
-contents={%
-  \includegraphics[width=\paperwidth, height=\paperheight]{example-image}
-  }%
-}
+% disabled for debugging
+%\backgroundsetup{
+%scale=1,
+%color=black,
+%opacity=0.4,
+%angle=0,
+%contents={%
+%  \includegraphics[width=\paperwidth, height=\paperheight]{example-image}
+%  }%
+%}
 
 \newcommand\BackgroundPic{%
 \put(0,0){%
