@@ -152,8 +152,9 @@
 %                  colored boxes).
 % Fourth Argument: The Person's text color (used for displaying the person's
 %                  name on the colored background).
+% Fifth Argument:  The person who plays that character (the role).
 \makeatletter
-\NewDocumentCommand{\NewPerson}{m+m+m+m}{%
+\NewDocumentCommand{\NewPerson}{m+m+m+m+m}{%
   \typeout{Creating person #1...}
   % Add this person to the global list
   \addperson{#2}%
@@ -181,6 +182,9 @@
     }%
     \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}
   } % defines \<charactername>h-command for inline highlighting
+  \expandafter\NewDocumentCommand\csname #2_role\endcsname{}{%
+    #5
+  } % defines \<charactername>_role-command to print the person who plays that character.
 }% End of \NewPerson
 \makeatother
 
@@ -188,8 +192,9 @@
 % are taken from the 26 colors in the highlightcolors- and textcolors-lists.
 % First Argument:  The Person's full name (as shown in the document)
 % Second Argument: The Person's short name (used for the command creation)
+% Third Argument: The person who plays that character (the role).
 \makeatletter
-\NewDocumentCommand{\NewPersonAutoColor}{m+m}{%
+\NewDocumentCommand{\NewPersonAutoColor}{m+m+m}{%
   \typeout{Creating Person #1 with automatic colors...}
   \edef\currentnumber{\value{colornumber}}
 %  \edef\#1textcolor{\getnthelement[textcolors]{\currentnumber}}
