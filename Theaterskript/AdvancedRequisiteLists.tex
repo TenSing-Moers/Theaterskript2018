@@ -20,6 +20,7 @@
 
 \ExplSyntaxOn
 \seq_new:N \l_luke_listofrequisites_seq 
+\seq_new:N \g_luke_listofpersons_seq
 
 \NewDocumentCommand{\addrequisitelocal}{m}{%
   \seq_gput_right:Nn \l_luke_listofrequisites_seq {#1}
@@ -30,10 +31,20 @@
 }
 
 \NewDocumentCommand{\DisplayRequisites}{}{%
-  %\seq_clear:N \l_luke_listofrequisites_seq
-  \PreRequisiteList
-  \seq_use:Nn \l_luke_listofrequisites_seq {,~} % this is the delimiter
-  \PostRequisiteList
+  \seq_clear:N \l_luke_listofrequisites_seq % Clear l_luke_listofrequisites_seq
+  \group_begin:
+  \seq_clear:N \l_tmpa_seq % Clear temp list
+  \seq_map_inline:Nn \g_luke_listofpersons_seq {%
+    \IfRefUndefinedExpandable{##1\thesection}{}{
+      \seq_put_right:Nn \l_tmpa_seq {\use:c{##1h}}
+     }
+   }
+   \seq_if_empty:NF \l_tmpa_seq {
+     \PrePersonList
+     \seq_use:Nn \l_luke_listofrequisites_seq {,~} % this is the delimiter
+     \PostPersonList
+   %}
+   \group_end:
 }
 \ExplSyntaxOff
 
