@@ -1,13 +1,48 @@
 \documentclass{scrartcl}
 
-\input{../../AdvancedPersonLists2}
+\usepackage{dramatist}
+\usepackage[x11names]{xcolor}
+\usepackage[skins]{tcolorbox} %Die für die Sprechakte verwendete Colorbox
+
+\input{../../colors}
+\input{../../numberedLists}
+\input{../../colorLists}
+\input{../../AdvancedPersonLists}
+
+\edef\savedfboxsep{\the\fboxsep} %Speichere den fboxsep, da dieser später (lied, tanz, etc.-commands) verändert wird, und offenbar nicht zurückgestellt wird. Dies verursacht Probleme mit den Hervorhebungen der Charakternamen, da das Margin der Highlight-Colorboxen nach einem Aufruf von \lied sehr gering ist.
+
+\newcommand{\speechbox}[4]{\item\leavevmode\begin{tcolorbox}[before={},after={},title=#1,colframe=#2,coltitle=#3]#4\end{tcolorbox}}
+\newcommand{\boxcommand}[2]{\setlength{\fboxsep}{\savedfboxsep}\colorbox{#1}{#2}} %Dieses Kommando bestimmt, wie jedes der Highlight-Makros seine Colorboxen macht. Die Länge \fboxsep muss jedes mal neu gesetzt werden, da die colorboxen in \lied, \tanz usw, diese auf 0mm setzen, und nicht wieder zurücksetzen. Sonst sieht der Margin trotz \strut hässlich aus.
 
 
-\NewPerson{tom}{\colorbox{green}}
-\NewPerson{frodo}{\colorbox{yellow}}
-\NewPerson{Gandalf}{\fcolorbox{yellow}{yellow!60!blue}}
-\NewPerson{Paulo}{\colorbox{green}}
-\NewPerson{David}{\colorbox{orange}}
+%\NewPerson{tom}{\colorbox{green}}
+%\NewPerson{frodo}{\colorbox{yellow}}
+%\NewPerson{Gandalf}{\fcolorbox{yellow}{yellow!60!blue}}
+%\NewPerson{Paulo}{\colorbox{green}}
+%\NewPerson{David}{\colorbox{orange}}
+
+% \NewPerson: Creates a new Person with its respective commands
+% First Argument:  The Person's full name (as shown in the document)
+% Second Argument: The Person's short name (used for the command creation)
+% Third Argument:  The Person's highlight color (used for highlighting and 
+%                  colored boxes).
+% Fourth Argument: The Person's text color (used for displaying the person's
+%                  name on the colored background).
+%\NewPerson{tom}{\colorbox{green}}
+%\NewPerson{frodo}{\colorbox{yellow}}
+%\NewPerson{Gandalf}{\fcolorbox{yellow}{yellow!60!blue}}
+%\NewPerson{Paulo}{\colorbox{green}}
+%\NewPerson{David}{\colorbox{orange}}
+
+% \NewPerson: Creates a new Person with its respective commands. The colors
+% are taken from the 26 colors in the highlightcolors- and textcolors-lists.
+% First Argument:  The Person's full name (as shown in the document)
+% Second Argument: The Person's short name (used for the command creation)
+\NewPersonAutoColor{Tom}{tom}
+\NewPersonAutoColor{Frodo}{frodo}
+\NewPersonAutoColor{Gandalf}{gandalf}
+\NewPersonAutoColor{Paulo}{paulo}
+\NewPersonAutoColor{David}{david}
 
 \usehyperlinkstrue
 
@@ -17,34 +52,43 @@
 
 \section{In the supermarket}
 \DisplayPersons
+\begin{drama}
 \tomx{Hi, I'm Tom!}
 
 \frodox{Hi, I'm Frodo!}
+\end{drama}
 
 \section{At TeX.SE}
 
 \DisplayPersons
 
+\begin{drama}
 \frodox{Hi, I'm Frodo!}
 
 \frodox{I am going to Mordor}
 
-\Gandalfx{Cast the ring into the fire!}
+\gandalfx{Cast the ring into the fire!}
 
 \tomx{Waiting for Godot}
+\end{drama}
+
 
 \section{In TeX.SE Chat}
 
 \DisplayPersons
 
-\Paulox{Quack!}
+\begin{drama}
+\paulox{Quack!}
 
-\Gandalfx{Quack!}
+\gandalfx{Quack!}
 
-\Davidx{I've got a recipe for Duck in Orange Sauce}
+\davidx{I've got a recipe for Duck in Orange Sauce}
 
 \tomx{That's marvellous}
 
 \frodox{Pineapple pizza!}
+\end{drama}
+
+
 
 \end{document}
