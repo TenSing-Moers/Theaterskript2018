@@ -182,9 +182,9 @@
     }%
     \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}
   } % defines \<charactername>h-command for inline highlighting
-  %\expandafter\NewDocumentCommand\csname #2r\endcsname{}{%
-    %#5
-  %} % defines \<charactername>_role-command to print the person who plays that character.
+  \expandafter\NewDocumentCommand\csname #2r\endcsname{}{%
+    #5
+  } % defines \<charactername>_role-command to print the person who plays that character.
 }% End of \NewPerson
 \makeatother
 
