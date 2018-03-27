@@ -20,6 +20,12 @@
 
 \input{colorLists}
 
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document
+\newcolumntype{L}[1]{>{\raggedright}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft}p{#1}}
+
+\newif\ifusehyperlinks
+
 % number of the next color to use when none is specified.
 \newcounter{colornumber}
 \stepcounter{colornumber}
@@ -29,12 +35,24 @@
 \seq_new:N \l_luke_listofpersons_seq 
 
 \NewDocumentCommand{\addperson}{m}{%
-  \seq_gput_right:Nn \g_luke_listofpersons_seq {#1}
-  \seq_gremove_duplicates:N \g_luke_listofpersons_seq
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document
+  \seq_if_in:NnF \g_luke_listofpersons_seq {#1} {
+    \seq_gput_right:Nn \g_luke_listofpersons_seq {#1}
+    \seq_gremove_duplicates:N \g_luke_listofpersons_seq
+    \seq_new:c {g_luke_#1_scene_seq }
+  }
+  \int_compare:nNnT {\number\value{section}} > {0} {
+    \seq_gput_right:cx {g_luke_#1_scene_seq } {\thesection}
+  }
 }
 
 \NewDocumentCommand{\addpersonlocal}{m}{%
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document
   \seq_gput_right:Nn \l_luke_listofpersons_seq {#1}
+  \int_compare:nNnT {\number\value{section}} > {0} {
+    \seq_gput_right:cx {g_luke_#1_scene_seq } {\thesection}
+  }
+%  \seq_show:c {g_luke_#1_scene_seq }
 }
 
 \cs_new:Npn \IfPersonCalledAlreadyF #1#2 {%
@@ -58,6 +76,59 @@
    \group_end:
 
 }
+
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document
+\cs_generate_variant:Nn \seq_set_from_clist:Nn {Nx}
+
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document\\
+% This creates the table entry line per person, by 'cracking' the stored list of sections into the relevant section number and then provides a hyper link
+\cs_new:Npn \generatelistofpersonstableline {
+  \seq_map_inline:Nn \g_luke_listofpersons_seq  {
+    \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{person::##1}}
+    \seq_if_empty:NF \l_tmpa_seq {
+    \use:c{##1h} &     \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{person::##1}}
+    \int_set:Nn \l_tmpa_int {\seq_count:N \l_tmpa_seq} 
+    \int_zero:N \l_tmpb_int
+    \seq_map_inline:Nn \l_tmpa_seq {
+      \int_incr:N \l_tmpb_int
+      \ifusehyperlinks
+      \hyperlink{section.####1}{####1}
+      \else
+      ####1
+      \fi
+      \int_compare:nNnF {\l_tmpa_int} = {\l_tmpb_int} {
+        ,\space
+      }
+    }
+    \tabularnewline
+    }
+  }
+}
+
+\NewDocumentCommand{\ListOfPersons}{}{%
+ \begin{longtable}{L{5cm}R{10cm}}
+   \bfseries Person & \bfseries Sections \tabularnewline
+   \endhead
+   \generatelistofpersonstableline
+  \end{longtable}
+}
+\makeatletter
+
+\NewDocumentCommand{\storelistofpersons}{}{%
+  \seq_map_inline:Nn \g_luke_listofpersons_seq  {
+    \protected@edef\@currentlabel{\seq_use:cn {g_luke_##1_scene_seq}{,}}
+    \label{person::##1}%
+    % ##1 \space \seq_use:cn {g_luke_##1_scene_seq}  {,}
+    % \par
+  }
+}
+\makeatother
+
+
+\AtEndDocument{%
+  \storelistofpersons%
+}
+
 \ExplSyntaxOff
 
 \NewDocumentCommand{\PostPersonList}{}{%
