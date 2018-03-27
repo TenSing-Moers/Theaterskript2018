@@ -29,7 +29,7 @@
 \usepackage[paper=a4paper,top=20mm,left=20mm,bottom=20mm,right=20mm,headheight=1cm,includefoot]{geometry} %Seitenrand einstellen
 %\usepackage{xpatch} % disabled for debugging
 %\usepackage{showframe} % Provides \xapptocmd % disabled for debugging
-%\usepackage{titlesec} %Dekoration der Section Headings, s. unten % disabled for debugging
+\usepackage{titlesec} %Dekoration der Section Headings, s. unten
 \usepackage{setspace} %Zeilenabstand
 \usepackage{soul} %Striketrough \st{}
 %\usepackage{amsfonts} %\circledR-Kommando für registered trademark symbol % disabled for debugging
@@ -81,13 +81,12 @@
 \renewcommand{\printscenenum}{\stepcounter{section}\scenenumfont \thescene} %Die Kapitelnummer soll bei jeder neuen Szene hochgezählt werden, damit Unterteilungen mit entsprechenden Nummern möglich sind
 \renewcommand{\printscenetitle}[1]{\scenetitlefont: #1}
 
-% disabled for debugging
-%%Dekoration der Section Headings
-%\titleformat{\section}[block]% Abgewandelt nach http://tex.stackexchange.com/questions/104336/fancy-heading-section-titles-disappears
-% {\huge\bfseries\center\sechl}
-% {\thesection}%
-% {1em}%
-% {}
+%Dekoration der Section Headings
+\titleformat{\section}[block]% Abgewandelt nach http://tex.stackexchange.com/questions/104336/fancy-heading-section-titles-disappears
+ {\huge\bfseries\center\sechl}
+ {\thesection}%
+ {1em}%
+ {}
 
 %\StageDirConf{\setlength{\parindent}{0pt}\par\itshape}{}
 %\StageDirConf{\setlength{\parskip}{3mm}\vspace{-1mm}\begin{quote}}{\end{quote}\vspace{-1mm}}
