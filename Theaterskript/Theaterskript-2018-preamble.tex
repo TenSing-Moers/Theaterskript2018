@@ -13,7 +13,7 @@
 % <https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode>.
 %
 % Copyright TenSing Moers and all whose work and <3 went in this project.
-\documentclass[oneside,12pt,enabledeprecatedfontcommands]{scrreprt}
+\documentclass[oneside,12pt,enabledeprecatedfontcommands]{scrartcl}
 \usepackage[ngerman]{babel} %Deutsche Sprachunterstützung
 \usepackage{scrpage2} %Kopf- und Fußzeilen
 \usepackage[utf8]{inputenc} %Umlaute
@@ -77,7 +77,7 @@
 \newcommand{\sechl}{\tikz[overlay]{ \draw[fill=Orange1] (-.6\textwidth,-1ex) rectangle (1.15\textwidth,1em);}}%\draw (-.75\textwidth,-1ex) -- (\textwidth,-1ex); \draw (-\textwidth,1em) -- (\textwidth,1em)}%}
 \renewcommand{\printscenename}{\vspace{2cm}\huge\bfseries\center\sechl \scenename}
 %\renewcommand{\printscenename}{\clearpage\huge\bfseries\center\sechl \scenename} %Die Aktnummer soll nicht abgedruckt werden, da dies ein "Einakter" ist.
-\renewcommand{\printscenenum}{\stepcounter{chapter}\scenenumfont \thescene} %Die Kapitelnummer soll bei jeder neuen Szene hochgezählt werden, damit Unterteilungen mit entsprechenden Nummern möglich sind
+\renewcommand{\printscenenum}{\stepcounter{section}\scenenumfont \thescene} %Die Kapitelnummer soll bei jeder neuen Szene hochgezählt werden, damit Unterteilungen mit entsprechenden Nummern möglich sind
 \renewcommand{\printscenetitle}[1]{\scenetitlefont: #1}
 
 %Dekoration der Section Headings
