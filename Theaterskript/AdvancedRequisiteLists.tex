@@ -15,25 +15,56 @@
 % Copyright TenSing Moers and all whose work and <3 went in this project.
 % After some kind answer on http://tex.stackexchange.com/questions/357020/latex-output-custom-commands-used-in-current-section
 
+\usepackage{array}
+\usepackage{longtable}
 \usepackage{refcount}
 \usepackage{xparse}
+\usepackage{hyperref}
+
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document
+\newcolumntype{L}[1]{>{\raggedright}p{#1}}
+\newcolumntype{M}[1]{>{\raggedright}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft}p{#1}}
+
+\newif\ifusehyperlinks
+
+% number of the next color to use when none is specified.
+\newcounter{colornumber}
+\stepcounter{colornumber}
 
 \ExplSyntaxOn
-\seq_new:N \l_luke_listofrequisites_seq 
 \seq_new:N \g_luke_listofpersons_seq
+\seq_new:N \l_luke_listofpersons_seq 
 
-\NewDocumentCommand{\addrequisitelocal}{m}{%
-  \seq_gput_right:Nn \l_luke_listofrequisites_seq {#1}
+\NewDocumentCommand{\addperson}{m}{%
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document
+  \seq_if_in:NnF \g_luke_listofpersons_seq {#1} {
+    \seq_gput_right:Nn \g_luke_listofpersons_seq {#1}
+    \seq_gremove_duplicates:N \g_luke_listofpersons_seq
+    \seq_new:c {g_luke_#1_scene_seq }
+  }
+  \int_compare:nNnT {\number\value{section}} > {0} {
+    \seq_gput_right:cx {g_luke_#1_scene_seq } {\thesection}
+  }
 }
 
-\cs_new:Npn \IfRequisiteCalledAlreadyF #1#2 {%
-  \seq_if_in:NnF \l_luke_listofrequisites_seq {#1} {#2}
+\NewDocumentCommand{\addpersonlocal}{m}{%
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document
+  \seq_gput_right:Nn \l_luke_listofpersons_seq {#1}
+  \int_compare:nNnT {\number\value{section}} > {0} {
+    \seq_gput_right:cx {g_luke_#1_scene_seq } {\thesection}
+  }
+%  \seq_show:c {g_luke_#1_scene_seq }
 }
 
-\NewDocumentCommand{\DisplayRequisites}{}{%
-  \seq_clear:N \l_luke_listofrequisites_seq % Clear l_luke_listofrequisites_seq
+\cs_new:Npn \IfPersonCalledAlreadyF #1#2 {%
+  \seq_if_in:NnF \l_luke_listofpersons_seq {#1} {#2}
+}
+
+\NewDocumentCommand{\DisplayPersons}{}{%
+  \seq_clear:N \l_luke_listofpersons_seq
   \group_begin:
-  \seq_clear:N \l_tmpa_seq % Clear temp list
+  \seq_clear:N \l_tmpa_seq
   \seq_map_inline:Nn \g_luke_listofpersons_seq {%
     \IfRefUndefinedExpandable{##1\thesection}{}{
       \seq_put_right:Nn \l_tmpa_seq {\use:c{##1h}}
@@ -41,23 +72,78 @@
    }
    \seq_if_empty:NF \l_tmpa_seq {
      \PrePersonList
-     \seq_use:Nn \l_luke_listofrequisites_seq {,~} % this is the delimiter
+     \seq_use:Nn \l_tmpa_seq {,~} % this is the delimiter
      \PostPersonList
-   %}
+   }
    \group_end:
+
 }
+
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document
+\cs_generate_variant:Nn \seq_set_from_clist:Nn {Nx}
+
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document\\
+% This creates the table entry line per person, by 'cracking' the stored list of sections into the relevant section number and then provides a hyper link
+\cs_new:Npn \generatelistofpersonstableline {
+  \seq_map_inline:Nn \g_luke_listofpersons_seq  {
+    \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{person::##1}}
+    \seq_if_empty:NF \l_tmpa_seq {
+    \use:c{##1h} & \use:c{##1r} & \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{person::##1}}
+    \int_set:Nn \l_tmpa_int {\seq_count:N \l_tmpa_seq} 
+    \int_zero:N \l_tmpb_int
+    \seq_map_inline:Nn \l_tmpa_seq {
+      \int_incr:N \l_tmpb_int
+      \ifusehyperlinks
+      \hyperlink{section.####1}{####1}
+      \else
+      ####1
+      \fi
+      \int_compare:nNnF {\l_tmpa_int} = {\l_tmpb_int} {
+        ,\space
+      }
+    }
+    \tabularnewline
+    }
+  }
+}
+
+\NewDocumentCommand{\ListOfPersons}{}{%
+ \renewcommand{\arraystretch}{1.5}
+ \begin{longtable}{L{5cm}M{5cm}R{5cm}}
+   \bfseries Charakter: & \bfseries gespielt\ von: & \bfseries in\ Szenen: \tabularnewline
+   \endhead
+   \generatelistofpersonstableline
+  \end{longtable}
+}
+\makeatletter
+
+\NewDocumentCommand{\storelistofpersons}{}{%
+  \seq_map_inline:Nn \g_luke_listofpersons_seq  {
+    \protected@edef\@currentlabel{\seq_use:cn {g_luke_##1_scene_seq}{,}}
+    \label{person::##1}%
+    % ##1 \space \seq_use:cn {g_luke_##1_scene_seq}  {,}
+    % \par
+  }
+}
+\makeatother
+
+
+\AtEndDocument{%
+  \storelistofpersons%
+}
+
 \ExplSyntaxOff
 
-\NewDocumentCommand{\PostRequisiteList}{}{%
+\NewDocumentCommand{\PostPersonList}{}{%
   \bigskip%
 
 }
 
-\NewDocumentCommand{\displayindividualrequisite}{m}{%
+\NewDocumentCommand{\displayindividualperson}{m}{%
   \textbf{#1}%
 }
 
-\NewDocumentCommand{\PreRequisiteList}{}{%
+\NewDocumentCommand{\PrePersonList}{}{%
   {\large \bfseries Charaktere:}%
 }
 
@@ -68,16 +154,56 @@
 %                  colored boxes).
 % Fourth Argument: The Person's text color (used for displaying the person's
 %                  name on the colored background).
+% Fifth Argument:  The person who plays that character (the role).
 \makeatletter
-\NewDocumentCommand{\requisite}{m+m}{%
-  \typeout{Using requisite #1...}
+\NewDocumentCommand{\NewPerson}{m+m+m+m+m}{%
+  \typeout{Creating person #1...}
+  % Add this person to the global list
+  \addperson{#2}%
+  % Now define the personal \...x command 
+  \expandafter\NewDocumentCommand\csname #2\endcsname{}{%
+    \textsc{#1} %
+  }
+  \expandafter\NewDocumentCommand\csname #2x\endcsname{+m}{%
+    %Check if the person has been called in the local section already
+    \IfPersonCalledAlreadyF{#2}{%
+      \addpersonlocal{#2}
+      % Add the personal to the local list, i.e. per section
+      % Check whether the label has been defined already
+        \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
+    }%
+    \speechbox{#1}{#3}{#4}{##1}%
+  } % defines \<charactername>x-command for speech
+  \expandafter\NewDocumentCommand\csname #2h\endcsname{}{%
   %Check if the person has been called in the local section already
-%  \IfRequisiteCalledAlreadyF{#1}{%
-  \addrequisitelocal{#1}
-    % Add the personal to the local list, i.e. per section
-    % Check whether the label has been defined already
-  \protected@edef\@currentlabel{\thesection.#1}\label{#1\thesection}
-  %}%
-    \boxcommand{grey}{\strut\textcolor{black}{\textsc{#2}}}
+    \IfPersonCalledAlreadyF{#2}{%
+      \addpersonlocal{#2}
+      % Add the personal to the local list, i.e. per section
+      % Check whether the label has been defined already
+        \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
+    }%
+    \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}
+  } % defines \<charactername>h-command for inline highlighting
+  \expandafter\NewDocumentCommand\csname #2r\endcsname{}{%
+    #5%
+  } % defines \<charactername>_role-command to print the person who plays that character.
+}% End of \NewPerson
+\makeatother
+
+% \NewPerson: Creates a new Person with its respective commands. The colors
+% are taken from the 26 colors in the highlightcolors- and textcolors-lists.
+% First Argument:  The Person's full name (as shown in the document)
+% Second Argument: The Person's short name (used for the command creation)
+% Third Argument: The person who plays that character (the role).
+\makeatletter
+\NewDocumentCommand{\NewPersonAutoColor}{m+m+m}{%
+  \typeout{Creating Person #1 with automatic colors...}
+  \edef\currentnumber{\value{colornumber}}
+%  \edef\#1textcolor{\getnthelement[textcolors]{\currentnumber}}
+%  \edef\currenthighlightcolor{\getnthelement[highlightcolors]{\currentnumber}}
+  \expandafter\colorlet{#2_textcolor}{\getnthelement[textcolors]{\currentnumber}}
+  \expandafter\colorlet{#2_highlightcolor}{\getnthelement[highlightcolors]{\currentnumber}}
+  \NewPerson{#1}{#2}{#2_highlightcolor}{#2_textcolor}{#3}
+  \stepcounter{colornumber}
 }% End of \NewPerson
 \makeatother
