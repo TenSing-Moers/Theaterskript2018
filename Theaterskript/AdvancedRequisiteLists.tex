@@ -172,7 +172,7 @@
         %\protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
     %}%
     \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}
-  } % defines \<charactername>f-command for printing the full name in
+  } % defines \<requisitename>f-command for printing the full name in
     % the requistie list.
   \expandafter\NewDocumentCommand\csname #2d\endcsname{}{%
   %Check if the requisite has been called in the local section already
@@ -183,7 +183,7 @@
         \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
     }%
     \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#5}}}
-  } % defines \<charactername>d-command for use of the requisite in text.
+  } % defines \<requisitename>d-command for use of the requisite in text.
   % Print requisite's description right now:
   \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#5}}}%
 }% End of \NewRequisite
