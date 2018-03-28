@@ -29,8 +29,8 @@
 \newif\ifusehyperlinks
 
 % number of the next color to use when none is specified.
-\newcounter{colornumber}
-\stepcounter{colornumber}
+\newcounter{requisitecolornumber}
+\stepcounter{requisitecolornumber}
 
 \ExplSyntaxOn
 \seq_new:N \g_luke_listofrequisites_seq
@@ -198,12 +198,12 @@
 \makeatletter
 \NewDocumentCommand{\NewRequisiteAutoColor}{m+m+m}{%
   \typeout{Creating Requisite #1 with automatic colors...}
-  \edef\currentnumber{\value{colornumber}}
+  \edef\currentnumber{\value{requisitecolornumber}}
 %  \edef\#1textcolor{\getnthelement[textcolors]{\currentnumber}}
 %  \edef\currenthighlightcolor{\getnthelement[highlightcolors]{\currentnumber}}
   \expandafter\colorlet{#2_textcolor}{\getnthelement[textcolors]{\currentnumber}}
   \expandafter\colorlet{#2_highlightcolor}{\getnthelement[highlightcolors]{\currentnumber}}
   \NewRequisite{#1}{#2}{#2_highlightcolor}{#2_textcolor}{#3}
-  \stepcounter{colornumber}
+  \stepcounter{requisitecolornumber}
 }% End of \NewRequisite
 \makeatother
