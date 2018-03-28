@@ -203,7 +203,9 @@
 % their short name.
 \makeatletter
 \NewDocumentCommand{\NewRequisiteAutoColor}{m+m+m}{%
-  \typeout{Creating Requisite #1 with automatic colors...}
+  \typeout{Creating Requisite #2 with automatic colors...}
+  \typeout{Requisite #2 long name: #1}
+  \typeout{Requisite #2 description: #3}
   \edef\currentnumber{\value{requisitecolornumber}}
 %  \edef\#1textcolor{\getnthelement[textcolors]{\currentnumber}}
 %  \edef\currenthighlightcolor{\getnthelement[highlightcolors]{\currentnumber}}
