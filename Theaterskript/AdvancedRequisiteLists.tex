@@ -161,6 +161,7 @@
   \typeout{Creating Requisite #1...}
   % Add this requisite to the global list
   \addrequisite{#2}%
+  \typeout{Creating #2f command...}
   \expandafter\NewDocumentCommand\csname #2f\endcsname{+m}{%
     %Check if the requisite has been called in the local section already
     % The full name should only be used in the requisite list and therefore
@@ -174,6 +175,7 @@
     \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}
   } % defines \<requisitename>f-command for printing the full name in
     % the requistie list.
+  \typeout{Creating #2d command...}
   \expandafter\NewDocumentCommand\csname #2d\endcsname{}{%
   %Check if the requisite has been called in the local section already
     \IfRequisiteCalledAlreadyF{#2}{%
@@ -185,6 +187,7 @@
     \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#5}}}
   } % defines \<requisitename>d-command for use of the requisite in text.
   % Print requisite's description right now:
+  \typeout{Printing requisite description now...}
   \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#5}}}%
 }% End of \NewRequisite
 \makeatother
