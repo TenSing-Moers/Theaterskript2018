@@ -161,10 +161,6 @@
   \typeout{Creating Requisite #1...}
   % Add this requisite to the global list
   \addrequisite{#2}%
-  % Now define the requisiteal \...x command 
-  \expandafter\NewDocumentCommand\csname #2\endcsname{}{%
-    \textsc{#1} %
-  }
   \expandafter\NewDocumentCommand\csname #2f\endcsname{+m}{%
     %Check if the requisite has been called in the local section already
     % The full name should only be used in the requisite list and therefore
