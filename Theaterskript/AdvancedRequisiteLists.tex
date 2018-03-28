@@ -88,7 +88,7 @@
   \seq_map_inline:Nn \g_luke_listofrequisites_seq  {
     \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{requisite::##1}}
     \seq_if_empty:NF \l_tmpa_seq {
-    \use:c{##1h} & \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{requisite::##1}}
+    \use:c{##1f} & \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{requisite::##1}}
     \int_set:Nn \l_tmpa_int {\seq_count:N \l_tmpa_seq} 
     \int_zero:N \l_tmpb_int
     \seq_map_inline:Nn \l_tmpa_seq {
@@ -108,6 +108,9 @@
 }
 
 \NewDocumentCommand{\ListOfRequisites}{}{%
+ \seq_use:Nn \g_luke_listofrequisites_seq {,~} % this is the delimiter
+ \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{requisite::plakata}}
+ \seq_use:Nn \l_tmpa_seq {,~} % this is the delimiter
  \renewcommand{\arraystretch}{1.5}
  \begin{longtable}{L{5cm}R{10cm}}
    \bfseries Requisite: & \bfseries in\ Szenen: \tabularnewline
