@@ -187,7 +187,13 @@
   \expandafter\NewDocumentCommand\csname #2hh\endcsname{}{%
     \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}
   } % defines \<charactername>hh-command for inline highlighting without adding to
-    % local requisite list
+    % local person list. This is used for displaying the character's name in the
+    % local person lists and the ListOfPersons, because otherwise the appearance
+    % in those lists would count as an appearance in the current section. This would
+    % cause characters to always being shown in a scene they have once appeared in,
+    % even if they got deleted afterwards, since the appearance in the local person
+    % list would count as an appearance in that scene, and therefore the person would
+    % be still displayed in that scene on the next build, and so on.
   \expandafter\NewDocumentCommand\csname #2r\endcsname{}{%
     #5%
   } % defines \<charactername>_role-command to print the person who plays that character.
