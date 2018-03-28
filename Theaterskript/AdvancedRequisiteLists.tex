@@ -88,7 +88,7 @@
   \seq_map_inline:Nn \g_luke_listofrequisites_seq  {
     \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{requisite::##1}}
     \seq_if_empty:NF \l_tmpa_seq {
-    \use:c{##1h} & \use:c{##1r} & \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{requisite::##1}}
+    \use:c{##1f} \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{requisite::##1}}
     \int_set:Nn \l_tmpa_int {\seq_count:N \l_tmpa_seq} 
     \int_zero:N \l_tmpb_int
     \seq_map_inline:Nn \l_tmpa_seq {
@@ -109,8 +109,8 @@
 
 \NewDocumentCommand{\listofrequisites}{}{%
  \renewcommand{\arraystretch}{1.5}
- \begin{longtable}{L{5cm}M{5cm}R{5cm}}
-   \bfseries Charakter: & \bfseries gespielt\ von: & \bfseries in\ Szenen: \tabularnewline
+ \begin{longtable}{L{5cm}R{10cm}}
+   \bfseries Requisite: \bfseries in\ Szenen: \tabularnewline
    \endhead
    \generatelistofrequisitestableline
   \end{longtable}
