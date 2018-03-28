@@ -174,7 +174,7 @@
       % Check whether the label has been defined already
         %\protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
     %}%
-    \speechbox{#1}{#3}{#4}{##1}%
+    \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}
   } % defines \<charactername>f-command for printing the full name in
     % the requistie list.
   \expandafter\NewDocumentCommand\csname #2d\endcsname{}{%
