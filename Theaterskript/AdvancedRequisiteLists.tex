@@ -88,7 +88,7 @@
   \seq_map_inline:Nn \g_luke_listofrequisites_seq  {
     \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{requisite::##1}}
     \seq_if_empty:NF \l_tmpa_seq {
-    asdf & \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{requisite::##1}}
+    \use:c{##1f} & \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{requisite::##1}}
     \int_set:Nn \l_tmpa_int {\seq_count:N \l_tmpa_seq} 
     \int_zero:N \l_tmpb_int
     \seq_map_inline:Nn \l_tmpa_seq {
@@ -108,10 +108,9 @@
 }
 
 \NewDocumentCommand{\ListOfRequisites}{}{%
-  Banane!
  \renewcommand{\arraystretch}{1.5}
  \begin{longtable}{L{5cm}R{10cm}}
-   \bfseries Requisite: \bfseries in\ Szenen: \tabularnewline
+   \bfseries Requisite: & \bfseries in\ Szenen: \tabularnewline
    \endhead
    \generatelistofrequisitestableline
   \end{longtable}
@@ -156,6 +155,7 @@
 % Fourth Argument: The Requisite's text color (used for displaying the requisite's
 %                  name on the colored background).
 % Fifth Argument:  The requisite's description (as shown in the text)
+\ExplSyntaxOn % for \use:c{#2d}
 \makeatletter
 \NewDocumentCommand{\NewRequisite}{m+m+m+m+m}{%
   \typeout{Creating Requisite #1...}
@@ -188,9 +188,12 @@
   } % defines \<requisitename>d-command for use of the requisite in text.
   % Print requisite's description right now:
   \typeout{Printing requisite description now...}
-  \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#5}}}%
+
+  \use:c{#2d}
+
 }% End of \NewRequisite
 \makeatother
+\ExplSyntaxOff
 
 % \NewRequisite: Creates a new Requisite with its respective commands. The colors
 % are taken from the 26 colors in the highlightcolors- and textcolors-lists.
