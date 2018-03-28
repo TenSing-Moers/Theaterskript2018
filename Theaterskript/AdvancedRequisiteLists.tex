@@ -108,9 +108,6 @@
 }
 
 \NewDocumentCommand{\ListOfRequisites}{}{%
- \seq_use:Nn \g_luke_listofrequisites_seq {,~} % this is the delimiter
- \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{requisite::plakata}}
- \seq_use:Nn \l_tmpa_seq {,~} % this is the delimiter
  \renewcommand{\arraystretch}{1.5}
  \begin{longtable}{L{5cm}R{10cm}}
    \bfseries Requisite: & \bfseries in\ Szenen: \tabularnewline
