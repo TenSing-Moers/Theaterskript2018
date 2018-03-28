@@ -23,6 +23,7 @@
 
 % As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document
 \newcolumntype{L}[1]{>{\raggedright}p{#1}}
+\newcolumntype{M}[1]{>{\raggedright}p{#1}}
 \newcolumntype{R}[1]{>{\raggedleft}p{#1}}
 
 \newif\ifusehyperlinks
@@ -87,7 +88,7 @@
   \seq_map_inline:Nn \g_luke_listofpersons_seq  {
     \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{person::##1}}
     \seq_if_empty:NF \l_tmpa_seq {
-    \use:c{##1h} &     \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{person::##1}}
+    \use:c{##1h} & \use:c{##1r} & \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{person::##1}}
     \int_set:Nn \l_tmpa_int {\seq_count:N \l_tmpa_seq} 
     \int_zero:N \l_tmpb_int
     \seq_map_inline:Nn \l_tmpa_seq {
@@ -107,8 +108,9 @@
 }
 
 \NewDocumentCommand{\ListOfPersons}{}{%
- \begin{longtable}{L{5cm}R{10cm}}
-   \bfseries Person & \bfseries Sections \tabularnewline
+ \renewcommand{\arraystretch}{1.5}
+ \begin{longtable}{L{5cm}M{5cm}R{5cm}}
+   \bfseries Charakter: & \bfseries gespielt\ von: & \bfseries in\ Szenen: \tabularnewline
    \endhead
    \generatelistofpersonstableline
   \end{longtable}
@@ -183,7 +185,7 @@
     \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}
   } % defines \<charactername>h-command for inline highlighting
   \expandafter\NewDocumentCommand\csname #2r\endcsname{}{%
-    #5
+    #5%
   } % defines \<charactername>_role-command to print the person who plays that character.
 }% End of \NewPerson
 \makeatother
