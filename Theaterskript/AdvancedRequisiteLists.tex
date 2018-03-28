@@ -162,7 +162,7 @@
   % Add this requisite to the global list
   \addrequisite{#2}%
   \typeout{Creating #2f command...}
-  \expandafter\NewDocumentCommand\csname #2f\endcsname{+m}{%
+  \expandafter\NewDocumentCommand\csname #2f\endcsname{}{%
     %Check if the requisite has been called in the local section already
     % The full name should only be used in the requisite list and therefore
     % should not add the requisite to the local requisite list.
