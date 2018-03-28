@@ -20,7 +20,6 @@
 \input{AdvancedPersonLists}
 %\input{AdvancedRequisiteLists}
 
-\typeout{Starting creation of persons...}
 \NewPersonAutoColor{Mila Monolog}{milam}{Louise}
 \NewPersonAutoColor{Mila Dialog}{milad}{Mara}
 \NewPersonAutoColor{Albert Einstein}{albert}{Thilo}
@@ -38,7 +37,6 @@
 \NewPersonAutoColor{Cleo / Kunigunde}{cleo}{Chayenne}
 \NewPersonAutoColor{Theo}{theo}{Lukas}
 \NewPersonAutoColor{Pikachu}{pikachu}{Jantje}
-\typeout{Finished creation of persons.}
 
 \newcommand{\customx}[2]{\speechbox{\textsc{#1}}{grey}{white}{#2}}
 \newcommand{\customh}[1]{ \boxcommand{grey}{\strut\textcolor{white}{#1} }}
@@ -93,28 +91,14 @@
 \usehyperlinkstrue
 \ListOfPersons
 
-%\input{Farbtest}
-%\farbtest
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%% Hier werden die einzelnen Szenen aufgerufen %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\lied{Intro: Circle of Life}{Band und Orga-Team}
-%\DisplayRequisites
-
 \input{Szenen/Szene01}
-Section: \thesection\\
-%Chapter: \thechapter
-%\DisplayRequisites
 \input{Szenen/Szene02}
-Section: \thesection\\
-%Chapter: \thechapter
-%\DisplayRequisites
 \input{Szenen/Szene03}
-Section: \thesection\\
-%Chapter: \thechapter
-%\DisplayRequisites
 %\tanz{Akrobatik: Tanzmedley-V1}
 %\other{Pause}
 
