@@ -79,6 +79,11 @@
  }}%
 
 \begin{document}
+\AddToShipoutPicture*{\BackgroundPic}
+\AddToShipoutPictureBG*{%
+  \AtPageUpperLeft{\raisebox{-\height}{\includegraphics[scale=.15,trim=50mm 0mm 100mm -10mm]{res/TEN_SING_Logo}}}%
+  \AtPageUpperRight{\put(-100,-6){\raisebox{-\height}{\includegraphics[scale=.18,trim=50mm 0mm 100mm -10mm]{res/CVJM_Logo_Vektor_Rein}}}}%
+}
 \begin{center}
 \Huge{Drama präsentiert}:
 
