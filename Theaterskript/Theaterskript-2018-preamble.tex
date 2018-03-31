@@ -23,6 +23,7 @@
 \usepackage[skins]{tcolorbox} %Die für die Sprechakte verwendete Colorbox
 \pagestyle{scrheadings}
 \usepackage{tikz} %Grafiken, ursprünglich für cooleres "hervorheben". Jetzt zur Dekoration der Section Headings!
+\usetikzlibrary{shadows} % Schatten
 %\usetikzlibrary{decorations}
 %\usepackage[bookmarks]{hyperref} %Verlinkungen im Inhaltsverzeichnis, um per Klicken zu den entsprechenden Szenen zu springen
 %\usepackage[paper=a4paper,top=20mm,left=20mm,bottom=20mm,right=20mm,headheight=2cm,includehead,includefoot]{geometry} %Seitenrand einstellen
@@ -36,12 +37,43 @@
 \usepackage{multicol}
 %\usepackage[pages=some]{background} % disabled for debugging % INCOMPATIBLE TO ADVANCEDPERSONLISTS.TEX 2.0!!
 \usepackage{eso-pic} % background % disabled for debugging
+%\usepackage{pdfrender} % contours, as in https://tex.stackexchange.com/a/387350 (https://tex.stackexchange.com/questions/25221/outlined-characters#387350)
+%\usepackage{pst-text} % contours as well, as in https://tex.stackexchange.com/a/25234 (https://tex.stackexchange.com/questions/25221/outlined-characters#25234)
+%\DeclareFixedFont{\RM}{T1}{ptm}{b}{n}{2cm}
+\usepackage{contour} % contours, as in https://tex.stackexchange.com/a/25241 (https://tex.stackexchange.com/questions/25221/outlined-characters#25241)
+\makeatletter
+\con@outlinetrue
+\makeatother
+\contourlength{1pt} %how thick each copy is
+%\contournumber{2}  %number of copies
 
 % Colorboxen für die hervorgehobenen Namen
 \tcbset{commonstyle/.style={boxrule=0pt,sharp corners,enhanced jigsaw,hbox,nobeforeafter,boxsep=0pt,left=\fboxsep,right=\fboxsep}}
 \newtcolorbox{mycolorbox}[1][]{commonstyle,#1}
 \newlength\myboxwidth
 \setlength{\myboxwidth}{\dimexpr\textwidth-2\fboxsep}
+
+% As in https://tex.stackexchange.com/questions/40853/drop-shadow-for-text-in-pgf-beamer#40855
+\newcommand\importantstuff[3]{
+    \newcommand\xoffset{0.3}
+    \newcommand\yoffset{-0.2}
+    % Blur
+    \foreach \x in {-0.1,0.1} {
+        \foreach \y in {-0.1,0.1} {         
+            \node[black!20] at (#1em+\xoffset em+\x em,#2em+\yoffset em+\y em) {
+                \scalebox{2}{\Huge\texttt{#3}} 
+            };
+        }
+    }
+
+    % Main Shadow
+    \node[black!40	] at (#1em+0.3em,#2em-0.2em) {
+        \scalebox{2}{\Huge\texttt{#3}} 
+    };
+    \node at (#1em,#2em) {
+        \scalebox{2}{\Huge\texttt{#3}} 
+    };
+}
 
 %\include{Highlighting}
 
@@ -150,9 +182,10 @@
 \newcommand\BackgroundPic{%
 \put(0,0){%
 \parbox[b][\paperheight]{\paperwidth}{%
-\vfill
-\centering
+%\vfill
+%\centering
+\hspace{-10cm}
 \includegraphics[%width=\paperwidth,
-height=\paperheight,keepaspectratio]{res/Space-2.jpg}%
+height=\paperheight,keepaspectratio]{res/Fantasy_Planet.jpg}%
 \vfill
 }}}
