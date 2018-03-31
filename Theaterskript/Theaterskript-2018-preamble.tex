@@ -36,11 +36,9 @@
 %\usepackage{amsfonts} %\circledR-Kommando für registered trademark symbol % disabled for debugging
 \usepackage{multicol}
 %\usepackage[pages=some]{background} % disabled for debugging % INCOMPATIBLE TO ADVANCEDPERSONLISTS.TEX 2.0!!
-\usepackage{eso-pic} % background % disabled for debugging
-%\usepackage{pdfrender} % contours, as in https://tex.stackexchange.com/a/387350 (https://tex.stackexchange.com/questions/25221/outlined-characters#387350)
-%\usepackage{pst-text} % contours as well, as in https://tex.stackexchange.com/a/25234 (https://tex.stackexchange.com/questions/25221/outlined-characters#25234)
-%\DeclareFixedFont{\RM}{T1}{ptm}{b}{n}{2cm}
+\usepackage{eso-pic} % background
 \usepackage{contour} % contours, as in https://tex.stackexchange.com/a/25241 (https://tex.stackexchange.com/questions/25221/outlined-characters#25241)
+
 \makeatletter
 \con@outlinetrue
 \makeatother
@@ -53,35 +51,6 @@
 \newlength\myboxwidth
 \setlength{\myboxwidth}{\dimexpr\textwidth-2\fboxsep}
 
-% As in https://tex.stackexchange.com/questions/40853/drop-shadow-for-text-in-pgf-beamer#40855
-\newcommand\importantstuff[3]{
-    \newcommand\xoffset{0.3}
-    \newcommand\yoffset{-0.2}
-    % Blur
-    \foreach \x in {-0.1,0.1} {
-        \foreach \y in {-0.1,0.1} {         
-            \node[black!20] at (#1em+\xoffset em+\x em,#2em+\yoffset em+\y em) {
-                \scalebox{2}{\Huge\texttt{#3}} 
-            };
-        }
-    }
-
-    % Main Shadow
-    \node[black!40	] at (#1em+0.3em,#2em-0.2em) {
-        \scalebox{2}{\Huge\texttt{#3}} 
-    };
-    \node at (#1em,#2em) {
-        \scalebox{2}{\Huge\texttt{#3}} 
-    };
-}
-
-%\include{Highlighting}
-
-%Deckblatt
-%\title{Die Drei Anführungszeichen und schon wieder irgendwas}
-%\author{(Working Title)\\TenSing Moers 2016}
-%\date{2016}
-
 \newcommand{\myquote}[1]{\glqq #1\grqq}
 
 \setlength{\parskip}{0mm} %3mm Abstand nach jedem Absatz
@@ -89,11 +58,6 @@
 \newlength{\dramatextinset}
 \setlength{\dramatextinset}{\dimexpr-\leftmargin+\labelsep}
 \edef\savedfboxsep{\the\fboxsep} %Speichere den fboxsep, da dieser später (lied, tanz, etc.-commands) verändert wird, und offenbar nicht zurückgestellt wird. Dies verursacht Probleme mit den Hervorhebungen der Charakternamen, da das Margin der Highlight-Colorboxen nach einem Aufruf von \lied sehr gering ist.
-
-% Disabled for debugging
-%\xapptocmd{\drama}{%
-%\setlength{\parindent}{\dramatextinset}%
-%}{\typeout{Success}}{\typeout{Failure}}
 
 %Übersetzung der standartmäßig englischen Namen "Characters", "Act", "Scene" ins Deutsche
 \renewcommand{\casttitlename}{Personen}
@@ -128,13 +92,8 @@
  {1em}%
  {}
 
-%\StageDirConf{\setlength{\parindent}{0pt}\par\itshape}{}
-%\StageDirConf{\setlength{\parskip}{3mm}\vspace{-1mm}\begin{quote}}{\end{quote}\vspace{-1mm}}
-
 %Ein Kommando, welches in blauer Farbe und in Klammern und Kursiv die Besetzung jeder Rolle in den DramaticsPersonae abdruckt (wird dort verwendet)
 \newcommand{\role}[1]{\textcolor{blue}{(\textit{#1})}}
-
-%\newcommand\hl[2]{\tikz[baseline,decoration={random steps,amplitude=1pt,segment length=15pt},outer sep=-15pt, inner sep = 0pt]\node[decorate,rectangle,fill=#1,anchor=text]{#2\xspace};}
 
 %Kommandos für die Infos vor jeder Szene (Requisiten, Spielort, Charaktere)
 \newcommand{\ort}[1]{\textbf{Ort:} \textit{#1}\par}
@@ -143,17 +102,11 @@
 
 % Kommandos, um die Sprechtexte der Charactere darzustellen
 \newcommand{\speechbox}[4]{\item\leavevmode\begin{tcolorbox}[before={},after={},title=#1,colframe=#2,coltitle=#3]#4\end{tcolorbox}}
-%\newcommand{\speechbox}[3]{\item\leavevmode\begin{tcolorbox}[before={},after={},title=#1,colframe=#2]#3\end{tcolorbox}}
-%\newcommand{\speechboxblack}[3]{\item\leavevmode\begin{tcolorbox}[before={},after={},title=#1,colframe=#2,coltitle=black]#3\end{tcolorbox}}
-%\newcommand{\speechbox}[3]{\item\leavevmode\begin{tcolorbox}[before={\hskip\dimexpr\leftmargin-\speechskip},after={},title=#1,colframe=#2]#3\end{tcolorbox}}
-%\newcommand{\speechbox}[3]{\item\leavevmode\mbox{}\begin{tcolorbox}[before={\hskip\dimexpr\leftmargin-\speechskip},after={},title=#1,colframe=#2]#3\end{tcolorbox}}
-
 \newcommand{\delim}{, } %Der Zeilentrenner in den Charakterlisten
 
 \newcommand{\sep}{\\[3mm]} %Um einen Zeilenumbruch mit Abstand ("fake-Absatz") innerhalb der tcolorboxen zu erzeugen
 
 %Kommandos, um die Programmpunkte im Skript zu vermerken
-%\newcommand{\lied}[1]{\colorbox{DarkOliveGreen2}{\parbox{\textwidth}{\textbf{Lied: } #1}}}
 \newcommand{\lied}[2]{\fboxsep0mm\colorbox{DarkOliveGreen2}{\fboxsep4mm\framebox[\textwidth][l]{\parbox{\linewidth}{\Large\textbf{\textsc{Lied}: } #1 $\Biggl\vert$ \textsubscript{#2}}}}}
 \newcommand{\tanz}[1]{\fboxsep0mm\colorbox{SteelBlue1}{\fboxsep4mm\framebox[\textwidth][l]{\parbox{\linewidth}{\Large\textbf{\textsc{Tanz}: } #1}}}}
 \newcommand{\pause}{\fboxsep0mm\colorbox{SteelBlue1}{\fboxsep4mm\framebox[\textwidth][l]{\parbox{\linewidth}{\center\Huge\textsc\textbf{\textsc{--------- Pause! ---------}}}}}}
@@ -167,17 +120,6 @@
 \newcommand{\soundwide}[1]{\begin{flushright}
 \par\fboxsep0mm\colorbox{Green2}{\fboxsep2mm\framebox[0.5\textwidth][l]{\parbox{\linewidth}{\vspace{0mm}\textsc\textbf{Sound: #1}}}}
 \end{flushright}}
-
-% disabled for debugging
-%\backgroundsetup{
-%scale=1,
-%color=black,
-%opacity=0.4,
-%angle=0,
-%contents={%
-%  \includegraphics[width=\paperwidth, height=\paperheight]{example-image}
-%  }%
-%}
 
 \newcommand\BackgroundPic{%
 \put(0,0){%
