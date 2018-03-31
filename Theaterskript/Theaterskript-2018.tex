@@ -79,38 +79,50 @@
  }}%
 
 \begin{document}
+\newgeometry{paper=a4paper,top=10mm,left=5mm,bottom=0mm,right=5mm}
 \AddToShipoutPicture*{\BackgroundPic}
 \AddToShipoutPictureBG*{%
   \AtPageUpperLeft{\raisebox{-\height}{\includegraphics[scale=.15,trim=50mm 0mm 100mm -10mm]{res/TEN_SING_Logo}}}%
   \AtPageUpperRight{\put(-100,-6){\raisebox{-\height}{\includegraphics[scale=.18,trim=50mm 0mm 100mm -10mm]{res/CVJM_Logo_Vektor_Rein}}}}%
 }
 \begin{center}
-\Huge{Drama präsentiert}:
+\color{white}\hspace{-28mm}
+\begin{Huge}
+Drama präsentiert:
+\end{Huge}
 
-\vspace{2cm}
-%\lipsum[1]
-\Huge\textbf{Unser super-mega-krass-tolles Theaterstück!!1!}\\
-\textit{(wir haben noch kein Motto)}
+\color{black}
+\vspace{155mm}
+\begin{Huge}
+\contour{white}{\textbf{Unser turbostarkes Theaterstück!!11!}}\\
+\contour{white}{\textit{(wir haben wie immer noch kein Motto -.-)}}
+\end{Huge}
 
-\vspace{1cm}
+\vspace{35mm}
+\begin{Large}
+\color{white}
+\contourlength{0.75pt} %how thick each copy is
+\contour{black}{+++ Neu: mit einem lustigen Sammelbildchen in jeder fünften Ausgabe! +++}\\
+\end{Large}
 
-\Large \st{+++ ihre Werbung hier +++ ihre Werbung hier +++}
-
-\vspace{1.5cm}
-
-\Large TenSing Moers, 2018
-
-\vspace*{15mm}
-
-\includegraphics[scale=.4,trim=80mm 20mm 80mm 20mm]{res/TEN_SING_Logo}
+\vspace{30mm}
 \end{center}
 
-\vspace*{\fill}
 \begin{flushright}
+\color{white}
 \textit{Yuhuu! Yippieh! Party!}\\
 \textit{Wo ist das Popcorn?}
 \end{flushright}
 
+\vspace{-10mm}
+
+\begin{center}
+\color{white}
+\Large TenSing Moers, 2018
+\end{center}
+
+\clearpage
+\restoregeometry
 \tableofcontents
 
 \begin{center}
@@ -119,6 +131,7 @@
 \end{center}
 
 \pagebreak
+%\newgeometry{paper=a4paper,top=10mm,left=15mm,bottom=10mm,right=15mm,headheight=1cm,footskip=1cm,includefoot}
 
 \setcounter{section}{-1}
 \section{Übersicht}
