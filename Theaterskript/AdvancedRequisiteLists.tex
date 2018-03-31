@@ -72,7 +72,7 @@
    }
    \seq_if_empty:NF \l_tmpa_seq {
      \PreRequisiteList
-     \seq_use:Nn \l_tmpa_seq {,~} % this is the delimiter
+     \seq_use:Nn \l_tmpa_seq {,\ } % this is the delimiter
      \PostRequisiteList
    }
    \group_end:
@@ -172,7 +172,7 @@
       % Check whether the label has been defined already
         %\protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
     %}%
-    \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}
+    \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}\ 
   } % defines \<requisitename>f-command for printing the full name in
     % the requistie list.
   \typeout{Creating #2d command...}
