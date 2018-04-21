@@ -67,7 +67,7 @@
   \seq_clear:N \l_tmpa_seq
   \seq_map_inline:Nn \g_luke_listofpersons_seq {%
     \IfRefUndefinedExpandable{##1\thesection}{}{
-      \seq_put_right:Nn \l_tmpa_seq {\use:c{##1hh}}
+      \seq_put_right:Nn \l_tmpa_seq {\use:c{##1h}}
      }
    }
    \seq_if_empty:NF \l_tmpa_seq {

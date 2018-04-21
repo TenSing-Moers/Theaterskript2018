@@ -1,0 +1,210 @@
+% This file is part of TenSing-Moers/Theaterskript2018.
+%
+% TenSing-Moers/Theaterskript2018 is free content: you can redistribute and/or
+% modify it under the terms of the cc-by-nc-sa (Creative Commons
+% Attribution-NonCommercial-ShareAlike) as released by the
+% Creative Commons organisation, version 4.0.
+%
+% TenSing-Moers/Theaterskript2018 is distributed in the hope that it will be useful,
+% but without any warranty.
+%
+% You should have received a copy of the cc-by-nc-sa-license along
+% with this copy of TenSing-Moers/Theaterkskript2018. If not, see
+% <https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode>.
+%
+% Copyright TenSing Moers and all whose work and <3 went in this project.
+\include{Theaterskript-2018-preamble}
+\input{colors}
+\input{numberedLists}
+\input{colorLists}
+\input{AdvancedPersonLists-Header}
+\input{AdvancedRequisiteLists}
+
+\NewPersonAutoColor{Mila Monolog}{milam}{Louise}
+\NewPersonAutoColor{Mila Dialog}{milad}{Mara}
+\NewPersonAutoColor{Albert Einstein}{albert}{Thilo}
+\NewPersonAutoColor{Wilma}{wilma}{Chiara}
+\NewPersonAutoColor{Wilhelmina}{wilhelmina}{Franzi}
+\NewPersonAutoColor{Salome}{salome}{Judith}
+\NewPersonAutoColor{Cosma}{cosma}{Kristin}
+\NewPersonAutoColor{Milas Mutter}{mutter}{Katrin}
+\NewPersonAutoColor{Leon}{leon}{Leo}
+\NewPersonAutoColor{Lena}{lena}{Lea}
+\NewPersonAutoColor{Charlotte}{charlotte}{Hannah}
+\NewPersonAutoColor{Sophia}{sophia}{Shana}
+\NewPersonAutoColor{Emma}{emma}{Tarya}
+\NewPersonAutoColor{Aaron}{aaron}{Raphael}
+\NewPersonAutoColor{Cleo / Kunigunde}{cleo}{Chayenne}
+\NewPersonAutoColor{Theo}{theo}{Lukas}
+\NewPersonAutoColor{Pikachu}{pikachu}{Jantje}
+
+% Requisites need to be declared in the preamble. Otherwise the requisite declarations
+% are not available when the Requisite List should be printed (at the beginning of the
+% document) (I guess...)
+\NewRequisiteAutoColor{Plakat \glqq 1984\grqq}{plakata}{Plakat}
+\NewRequisiteAutoColor{Spielzeug-Raumschiff}{raumschiff}{Raumschiff}
+\NewRequisiteAutoColor{Knall}{knall}{Knall}
+\NewRequisiteAutoColor{Lichtblitz}{lichtblitz}{Lichtblitz}
+\NewRequisiteAutoColor{Notizblock für Albert}{notizblock}{Notizblock}
+\NewRequisiteAutoColor{Verkaufsstand in der Wutwelt}{verkaufsstand}{Verkaufsstand}
+\NewRequisiteAutoColor{Müll}{muell}{Müll}
+\NewRequisiteAutoColor{Plakat mit Wutpunktestand}{plakatb}{Plakat mit dem Punktestand}
+\NewRequisiteAutoColor{Computerstimme}{computerstimme}{Computerstimme aus dem Off}
+\NewRequisiteAutoColor{Türklingel}{tuerklingel}{Türklingel}
+\NewRequisiteAutoColor{Tür?}{tuer}{Tür}
+\NewRequisiteAutoColor{Keksdose}{kekse}{Kekse}
+\NewRequisiteAutoColor{Banane}{banane}{Banane}
+\NewRequisiteAutoColor{Glas Orangensaft}{orangensaft}{frisch gepressten Orangensaft}
+\NewRequisiteAutoColor{Medizin}{medizin}{Medizin}
+\NewRequisiteAutoColor{Verbandszeug}{vbzeug}{Verbandszeug}
+\NewRequisiteAutoColor{Kleidung}{kleidung}{saubere Kleidung}
+\NewRequisiteAutoColor{Klopapier}{klopapier}{Klopapier}
+\NewRequisiteAutoColor{Feuchttücher}{feuchttuecher}{Feuchttücher}
+\NewRequisiteAutoColor{Desinfektionsmittel}{desinfektionsmittel}{Desinfektionsmittel}
+\NewRequisiteAutoColor{Strandhandtuch?}{strandhandtuch}{Strandhandtuch}
+\NewRequisiteAutoColor{Meeresrauschen?}{meeresrauschen}{Meeresrauschen}
+\NewRequisiteAutoColor{Einspieler: \glqq Los Pikachu\grqq}{lospikachu}{Einspieler: \glqq Los Pikachu\grqq}
+\NewRequisiteAutoColor{Sturm}{sturm}{Sturm}
+\NewRequisiteAutoColor{magischer Kuchen}{kuchen}{magischen Kuchen}
+\NewRequisiteAutoColor{Klingeln eines Weckers}{weckerklingeln}{Weckerklingeln}
+\NewRequisiteAutoColor{Bett}{bett}{Bett}
+\NewRequisiteAutoColor{Vier Bälle / Kugeln}{kugeln}{Bälle / Kugeln}
+
+\newcommand{\customx}[2]{\speechbox{\textsc{#1}}{grey}{white}{#2}}
+\newcommand{\customh}[1]{ \boxcommand{grey}{\strut\textcolor{white}{#1} }}
+\newcommand{\mycomment}[1]{\begin{flushright}\direct{#1}\end{flushright}}
+
+\newcommand\AtPageUpperRight[1]{\AtPageUpperLeft{%
+ \put(\LenToUnit{\paperwidth},\LenToUnit{0\paperheight}){#1}%
+ }}%
+
+\begin{document}
+\newgeometry{paper=a4paper,top=10mm,left=5mm,bottom=0mm,right=5mm}
+\AddToShipoutPicture*{\BackgroundPic}
+\AddToShipoutPictureBG*{%
+  \AtPageUpperLeft{\raisebox{-\height}{\includegraphics[scale=.15,trim=50mm 0mm 100mm -10mm]{res/TEN_SING_Logo}}}%
+  \AtPageUpperRight{\put(-100,-6){\raisebox{-\height}{\includegraphics[scale=.18,trim=50mm 0mm 100mm -10mm]{res/CVJM_Logo_Vektor_Rein}}}}%
+}
+\begin{center}
+\color{white}\hspace{-28mm}
+\begin{Huge}
+Drama präsentiert:
+\end{Huge}
+
+\color{black}
+\vspace{155mm}
+\begin{Huge}
+\contour{white}{\textbf{Unser turbostarkes Theaterstück!!11!}}\\
+\contour{white}{\textit{(wir haben wie immer noch kein Motto -.-)}}
+\end{Huge}
+
+\vspace{35mm}
+\begin{Large}
+\color{white}
+\contourlength{0.75pt} %how thick each copy is
+\contour{black}{+++ Neu: mit einem lustigen Sammelbildchen in jeder fünften Ausgabe! +++}\\
+\end{Large}
+
+\vspace{30mm}
+\end{center}
+
+\begin{flushright}
+\color{white}
+\textit{Yuhuu! Yippieh! Party!}\\
+\textit{Wo ist das Popcorn?}
+\end{flushright}
+
+\vspace{-10mm}
+
+\begin{center}
+\color{white}
+\begin{Large}TenSing Moers, 2018\end{Large}
+
+\begin{tiny}V2\end{tiny}
+\end{center}
+
+\clearpage
+\restoregeometry
+\tableofcontents
+
+\begin{center}
+\vspace*{\fill}
+\includegraphics[scale=.30,trim=80mm 20mm 80mm 20mm]{res/TEN_SING_Logo}
+\end{center}
+
+\pagebreak
+
+\setcounter{section}{-1}
+\section{Übersicht}
+\subsection{Rollen}
+\usehyperlinkstrue
+\ListOfPersons
+\begin{center}
+\vspace*{\fill}
+\vspace{-1cm}
+\includegraphics[scale=.35,trim=80mm 20mm 80mm 20mm]{res/TEN_SING_Logo}
+\vspace{-1cm}
+\end{center}
+\clearpage
+\subsection{Requisiten}
+\ListOfRequisites
+\vspace{-1cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% Hier werden die einzelnen Szenen aufgerufen %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lied{When you believe}{Chor}
+\input{Szenen/Szene01}
+\lied{Flashlight}{Kristin + Shana}
+\input{Szenen/Szene02}
+\lied{Dollhouse}{Kristin + Katrin}
+\input{Szenen/Szene03}
+\lied{Another day in Paradise}{Leo + Lukas}
+\tanz{Medley}
+\input{Szenen/Szene04}
+\lied{Believer}{Mara}
+\input{Szenen/Szene05}
+\lied{Skinny Love}{Judith}
+\input{Szenen/Szene06}
+\lied{Airplanes}{Chayenne}
+\input{Szenen/Szene07}
+\lied{Smoke on the Water}{Leo + Thilo}
+\input{Szenen/Szene08}
+\input{Szenen/Szene09}
+\lied{Applaus Applaus}{Chor}
+\other{Pause!}
+\input{Szenen/Szene10}
+\other{Bandintro}
+\tanz{Gruppentanz}
+\input{Szenen/Szene11}
+\lied{Regenbogen}{Shana}
+\input{Szenen/Szene12}
+\lied{Castle of Glass}{Raphael}
+\input{Szenen/Szene13}
+\lied{Let it be}{Franzi}
+\input{Szenen/Szene14}
+\lied{Mother}{Thilo, \textit{Reunion-Band}}
+\input{Szenen/Szene15}
+\lied{Hot and Cold}{Hannah}
+\input{Szenen/Szene16}
+\tanz{We're all in this together}
+\input{Szenen/Szene17}
+\lied{Viva la Vida}{Leo, \textit{Reunion-Band}}
+\other{Abmoderation}
+\lied{\textbf{Zugabe 1:} Lasse redn}{\textit{Reunion-Band}}
+\lied{\textbf{Zugabe 2:} Light them up}{Jantje}
+
+\pagebreak
+\cofoot{}\phantom{a}
+\AddToShipoutPicture*{\Gruppenfoto}
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ToDo:                                                                       %
+% - Wie heißen die Welten jetzt genau?                                        %
+% - Schwarze Kostüme für Wilma + Wilhelmina, buntes Kostüm für Cosma          %
+% - Ist "Los Pikachu" ein Einspieler?                                         %
+% - Ist Charlotte Salome?                                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
