@@ -112,14 +112,13 @@
 \newcommand{\pause}{\fboxsep0mm\colorbox{SteelBlue1}{\fboxsep4mm\framebox[\textwidth][l]{\parbox{\linewidth}{\center\Huge\textsc\textbf{\textsc{--------- Pause! ---------}}}}}}
 \newcommand{\other}[1]{\fboxsep0mm\colorbox{SteelBlue1}{\fboxsep4mm\framebox[\textwidth][l]{\parbox{\linewidth}{\center\huge\textsc\textbf{#1}}}}}
 \newcommand{\boxcommand}[2]{\setlength{\fboxsep}{\savedfboxsep}\colorbox{#1}{#2}} %Dieses Kommando bestimmt, wie jedes der Highlight-Makros seine Colorboxen macht. Die Länge \fboxsep muss jedes mal neu gesetzt werden, da die colorboxen in \lied, \tanz usw, diese auf 0mm setzen, und nicht wieder zurücksetzen. Sonst sieht der Margin trotz \strut hässlich aus.
-\newcommand{\mikroan}[1]{\fboxsep0mm\colorbox{Orange1}{\fboxsep2mm\framebox[0.3\textwidth][l]{\parbox{\linewidth}{\vspace{0mm}\textsc\textbf{Mikro an: #1}}}}}
-\newcommand{\mikroaus}[1]{\par\fboxsep0mm\colorbox{Orange1}{\fboxsep2mm\framebox[0.3\textwidth][l]{\parbox{\linewidth}{\vspace{0mm}\textsc\textbf{Mikro aus: #1}}}}}
-\newcommand{\sound}[1]{\begin{flushright}
-\par\fboxsep0mm\colorbox{Green2}{\fboxsep2mm\framebox[0.3\textwidth][l]{\parbox{\linewidth}{\vspace{0mm}\textsc\textbf{Sound: #1}}}}
-\end{flushright}}
-\newcommand{\soundwide}[1]{\begin{flushright}
-\par\fboxsep0mm\colorbox{Green2}{\fboxsep2mm\framebox[0.5\textwidth][l]{\parbox{\linewidth}{\vspace{0mm}\textsc\textbf{Sound: #1}}}}
-\end{flushright}}
+\newcommand{\mikroan}[1]{\begin{flushleft}\par\fboxsep0mm\colorbox{Orange1}{\fboxsep2mm\framebox[0.3\textwidth][l]{\parbox{\linewidth}{\vspace{0mm}\textsc\textbf{Mikro an: #1}}}}\end{flushleft}\par}
+\newcommand{\mikroaus}[1]{\begin{flushleft}\par\fboxsep0mm\colorbox{Orange1}{\fboxsep2mm\framebox[0.3\textwidth][l]{\parbox{\linewidth}{\vspace{0mm}\textsc\textbf{Mikro aus: #1}}}}\end{flushleft}\par}
+\newcommand{\sound}[1]{\begin{flushleft}\par\fboxsep0mm\colorbox{Green2}{\fboxsep2mm\framebox[0.3\textwidth][l]{\parbox{\linewidth}{\vspace{0mm}\textsc\textbf{Sound: #1}}}}\end{flushleft}\par}
+\newcommand{\soundwide}[1]{\begin{flushleft}\par\fboxsep0mm\colorbox{Green2}{\fboxsep2mm\framebox[0.5\textwidth][l]{\parbox{\linewidth}{\vspace{0mm}\textsc\textbf{Sound: #1}}}}\end{flushleft}\par}
+\newcommand{\licht}[1]{\begin{flushright}
+\par\fboxsep0mm\colorbox{Red1}{\fboxsep2mm\framebox[0.5\textwidth][l]{\parbox{\linewidth}{\vspace{0mm}\textsc\textbf{Licht: #1}}}}
+\end{flushright}\par}
 
 \newcommand\BackgroundPic{%
 \put(0,0){%
