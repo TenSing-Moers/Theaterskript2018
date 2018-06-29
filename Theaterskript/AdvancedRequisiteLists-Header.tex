@@ -1,0 +1,219 @@
+% This file is part of TenSing-Moers/Theaterskript2018.
+%
+% TenSing-Moers/Theaterskript2018 is free content: you can redistribute and/or
+% modify it under the terms of the cc-by-nc-sa (Creative Commons
+% Attribution-NonCommercial-ShareAlike) as released by the
+% Creative Commons organisation, version 4.0.
+%
+% TenSing-Moers/Theaterskript2018 is distributed in the hope that it will be useful,
+% but without any warranty.
+%
+% You should have received a copy of the cc-by-nc-sa-license along
+% with this copy of TenSing-Moers/Theaterkskript2018. If not, see
+% <https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode>.
+%
+% Copyright TenSing Moers and all whose work and <3 went in this project.
+% After some kind answer on http://tex.stackexchange.com/questions/357020/latex-output-custom-commands-used-in-current-section
+
+%\usepackage{array}
+%\usepackage{longtable}
+%\usepackage{refcount}
+%\usepackage{xparse}
+%\usepackage{hyperref}
+
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document
+%\newcolumntype{L}[1]{>{\raggedright}p{#1}}
+%\newcolumntype{M}[1]{>{\raggedright}p{#1}}
+%\newcolumntype{R}[1]{>{\raggedleft}p{#1}}
+
+%\newif\ifusehyperlinks
+
+% number of the next color to use when none is specified.
+\newcounter{requisitecolornumber}
+\stepcounter{requisitecolornumber}
+
+\ExplSyntaxOn
+\seq_new:N \g_luke_listofrequisites_seq
+\seq_new:N \l_luke_listofrequisites_seq 
+
+\NewDocumentCommand{\addrequisite}{m}{%
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document
+  \seq_if_in:NnF \g_luke_listofrequisites_seq {#1} {
+    \seq_gput_right:Nn \g_luke_listofrequisites_seq {#1}
+    \seq_gremove_duplicates:N \g_luke_listofrequisites_seq
+    \seq_new:c {g_luke_#1_scene_seq }
+  }
+  \int_compare:nNnT {\number\value{section}} > {0} {
+    \seq_gput_right:cx {g_luke_#1_scene_seq } {\thesection}
+  }
+}
+
+\NewDocumentCommand{\addrequisitelocal}{m}{%
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document
+  \seq_gput_right:Nn \l_luke_listofrequisites_seq {#1}
+  \int_compare:nNnT {\number\value{section}} > {0} {
+    \seq_gput_right:cx {g_luke_#1_scene_seq } {\thesection}
+  }
+%  \seq_show:c {g_luke_#1_scene_seq }
+}
+
+\cs_new:Npn \IfRequisiteCalledAlreadyF #1#2 {%
+  \seq_if_in:NnF \l_luke_listofrequisites_seq {#1} {#2}
+}
+
+\NewDocumentCommand{\DisplayRequisites}{}{%
+  \seq_clear:N \l_luke_listofrequisites_seq
+  \group_begin:
+  \seq_clear:N \l_tmpa_seq
+  \seq_map_inline:Nn \g_luke_listofrequisites_seq {%
+    \IfRefUndefinedExpandable{##1\thesection}{}{
+      \seq_put_right:Nn \l_tmpa_seq {\use:c{##1f}}
+     }
+   }
+   \seq_if_empty:NF \l_tmpa_seq {
+     \PreRequisiteList
+     \seq_use:Nn \l_tmpa_seq {,\ } % this is the delimiter
+     \PostRequisiteList
+   }
+   \group_end:
+
+}
+
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document
+\cs_generate_variant:Nn \seq_set_from_clist:Nn {Nx}
+
+% As per https://tex.stackexchange.com/questions/415216/latex-output-local-lists-on-root-document\\
+% This creates the table entry line per requisite, by 'cracking' the stored list of sections into the relevant section number and then provides a hyper link
+\cs_new:Npn \generatelistofrequisitestableline {
+  \seq_map_inline:Nn \g_luke_listofrequisites_seq  {
+    \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{requisite::##1}}
+    \seq_if_empty:NF \l_tmpa_seq {
+    \use:c{##1f} & \seq_set_from_clist:Nx \l_tmpa_seq {\getrefnumber{requisite::##1}}
+    \int_set:Nn \l_tmpa_int {\seq_count:N \l_tmpa_seq} 
+    \int_zero:N \l_tmpb_int
+    \seq_map_inline:Nn \l_tmpa_seq {
+      \int_incr:N \l_tmpb_int
+      \ifusehyperlinks
+      \hyperlink{section.####1}{####1}
+      \else
+      ####1
+      \fi
+      \int_compare:nNnF {\l_tmpa_int} = {\l_tmpb_int} {
+        ,\space
+      }
+    }
+    \tabularnewline
+    }
+  }
+}
+
+\NewDocumentCommand{\ListOfRequisites}{}{%
+ \renewcommand{\arraystretch}{1.5}
+ \begin{longtable}{L{6cm}R{11cm}}
+   \bfseries Requisite: & \bfseries in\ Szenen: \tabularnewline
+   \endhead
+   \generatelistofrequisitestableline
+  \end{longtable}
+}
+\makeatletter
+
+\NewDocumentCommand{\storelistofrequisites}{}{%
+  \seq_map_inline:Nn \g_luke_listofrequisites_seq  {
+    \protected@edef\@currentlabel{\seq_use:cn {g_luke_##1_scene_seq}{,}}
+    \label{requisite::##1}%
+    % ##1 \space \seq_use:cn {g_luke_##1_scene_seq}  {,}
+    % \par
+  }
+}
+\makeatother
+
+
+\AtEndDocument{%
+  \storelistofrequisites%
+}
+
+\ExplSyntaxOff
+
+\NewDocumentCommand{\PostRequisiteList}{}{%
+  \bigskip%
+
+}
+
+\NewDocumentCommand{\displayindividualrequisite}{m}{%
+  \textbf{#1}%
+}
+
+\NewDocumentCommand{\PreRequisiteList}{}{%
+  {\large \bfseries Requisiten: }%
+}
+
+% \NewRequisite: Creates a new Requisite with its respective commands
+% First Argument:  The Requisite's full name (as shown in the requisite list)
+% Second Argument: The Requisite's short name (used for the command creation)
+% Third Argument:  The Requisite's highlight color (used for highlighting and 
+%                  colored boxes).
+% Fourth Argument: The Requisite's text color (used for displaying the requisite's
+%                  name on the colored background).
+% Fifth Argument:  The requisite's description (as shown in the text)
+\ExplSyntaxOn % for \use:c{#2d}
+\makeatletter
+\NewDocumentCommand{\NewRequisite}{m+m+m+m+m}{%
+  \typeout{Creating Requisite #1...}
+  % Add this requisite to the global list
+  \addrequisite{#2}%
+  \typeout{Creating #2f command...}
+  \expandafter\NewDocumentCommand\csname #2f\endcsname{}{%
+    % Check if the requisite has been called in the local section already
+    % The full name should only be used in the requisite list and therefore
+    % should not add the requisite to the local requisite list.
+    \IfRequisiteCalledAlreadyF{#2}{%
+      \addrequisitelocal{#2}
+      % Add the requisiteal to the local list, i.e. per section
+      % Check whether the label has been defined already
+        \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
+    }%
+    \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#1}}}\ 
+  } % defines \<requisitename>f-command for printing the full name in
+    % the requistie list.
+  \typeout{Creating #2d command...}
+  \expandafter\NewDocumentCommand\csname #2d\endcsname{}{%
+  %Check if the requisite has been called in the local section already
+    \IfRequisiteCalledAlreadyF{#2}{%
+      \addrequisitelocal{#2}
+      % Add the requisiteal to the local list, i.e. per section
+      % Check whether the label has been defined already
+        \protected@edef\@currentlabel{\thesection.#2}\label{#2\thesection}
+    }%
+    \boxcommand{#3}{\strut\textcolor{#4}{\textsc{#5}}}\
+  } % defines \<requisitename>d-command for use of the requisite in text.
+  % Print requisite's description right now:
+  \typeout{Printing requisite description now...}
+
+  %\use:c{#2d}
+
+}% End of \NewRequisite
+\makeatother
+\ExplSyntaxOff
+
+% \NewRequisite: Creates a new Requisite with its respective commands. The colors
+% are taken from the 26 colors in the highlightcolors- and textcolors-lists.
+% First Argument:  The Requisite's full name (as shown in the requisite list)
+% Second Argument: The Requisite's short name (used for the command creation)
+% Third Argument:  The Requisite's description (as shown in the text)
+% 
+% Requisites are created upon first appearance. After that, they can be referred to by
+% their short name.
+\makeatletter
+\NewDocumentCommand{\NewRequisiteAutoColor}{m+m+m}{%
+  \typeout{Creating Requisite #2 with automatic colors...}
+  \typeout{Requisite #2 long name: #1}
+  \typeout{Requisite #2 description: #3}
+  \edef\currentnumber{\value{requisitecolornumber}}
+%  \edef\#1textcolor{\getnthelement[textcolors]{\currentnumber}}
+%  \edef\currenthighlightcolor{\getnthelement[highlightcolors]{\currentnumber}}
+  \expandafter\colorlet{#2_textcolor}{\getnthelement[textcolors]{\currentnumber}}
+  \expandafter\colorlet{#2_highlightcolor}{\getnthelement[highlightcolors]{\currentnumber}}
+  \NewRequisite{#1}{#2}{#2_highlightcolor}{#2_textcolor}{#3}
+  \stepcounter{requisitecolornumber}
+}% End of \NewRequisite
+\makeatother
